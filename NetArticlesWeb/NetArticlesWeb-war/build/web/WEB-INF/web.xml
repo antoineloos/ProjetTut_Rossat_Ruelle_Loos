@@ -18,11 +18,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>slNetArticle</servlet-name>
-        <url-pattern>/slNetArticle</url-pattern>
+        <url-pattern>*.art</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>slCommande</servlet-name>
-        <url-pattern>/slCommande</url-pattern>
+        <url-pattern>*.cmd</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

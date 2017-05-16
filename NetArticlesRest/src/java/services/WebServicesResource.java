@@ -167,7 +167,7 @@ public class WebServicesResource {
     @Path("getUtilisateur/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Client getUtilisateur(@PathParam("id") Integer id) throws Exception {
-        return clientF.find(id);
+        return clientF.lire(id);
     }
 
     

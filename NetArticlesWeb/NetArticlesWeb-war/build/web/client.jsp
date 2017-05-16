@@ -37,7 +37,7 @@
                 <SELECT  class='form-control' name="cbCategories" required>
                     <option value="0" >Sélectionner une catégorie</option>
                     <c:forEach var="categorieE" items="${listeCategoriesR}">
-                        <option value="${categorieE.idCategorie}"<c:if test="${categorieE.idCategorie == clientR.categorie.idCategorie}"> SELECTED</c:if> >${categorieE.libcategorie}</option>
+                        <option value="${categorieE.idCategorie}"<c:if test="${categorieE.idCategorie == clientR.idCategorie.idCategorie}"> SELECTED</c:if> >${categorieE.libcategorie}</option>
                     </c:forEach>
                 </SELECT>
             </div>

@@ -5,6 +5,10 @@
  */
 package session;
 
+import client.ClientNetArticlesRest;
+import dal.Categorie;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -16,6 +20,36 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class CategorieFacade {
 
+    private Categorie categorie;
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
+    public List<Categorie> lister() throws Exception {
+
+        List<Categorie> lCategories = new ArrayList<Categorie>();
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            lCategories = clientNetArticlesRest.getCategories();
+            return lCategories;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Categorie lire(int id) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            return clientNetArticlesRest.getCategorie(Categorie.class, id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

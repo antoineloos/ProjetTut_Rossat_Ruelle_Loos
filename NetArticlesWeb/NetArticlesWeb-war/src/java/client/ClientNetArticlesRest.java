@@ -5,10 +5,15 @@
  */
 package client;
 
+import dal.Categorie;
+import java.util.List;
+import javax.json.JsonObject;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import outils.Utilitaire;
 
 /**
  * Jersey REST client generated for REST resource:WebServiceResource
@@ -38,7 +43,7 @@ public class ClientNetArticlesRest {
         webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
     }
 
-    public <T> T getUtilisateur(Class<T> responseType, String id) throws ClientErrorException {
+    public <T> T getUtilisateur(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getUtilisateur/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
@@ -50,30 +55,56 @@ public class ClientNetArticlesRest {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public <T> T getCategorie(Class<T> responseType, String id) throws ClientErrorException {
+    public <T> T getCategorie(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getCategorie/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public <T> T getUtilisateurs(Class<T> responseType) throws ClientErrorException {
+    public List<Client> getUtilisateurs() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getUtilisateurs");
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response.readEntity(new GenericType<List<Client>>() {
+        });
     }
 
-    public <T> T getCategories(Class<T> responseType) throws ClientErrorException {
+    public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getCategories");
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response.readEntity(new GenericType<List<Categorie>>() {
+        });
     }
 
-    public Response ajouterUser() throws ClientErrorException {
-        return webTarget.path("ajouterUser").request().post(null, Response.class);
+    public Response ajouterUser(Object requestEntity) throws ClientErrorException, Exception {
+        Response response = webTarget.path("ajouterClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response;
     }
 
-    public Response supprimerUser() throws ClientErrorException {
-        return webTarget.path("supprimerUser").request().post(null, Response.class);
+    public Response supprimerUser(Object requestEntity) throws ClientErrorException, Exception {
+        Response response = webTarget.path("supprimerClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response;
     }
 
     public String getJson() throws ClientErrorException {
@@ -81,12 +112,19 @@ public class ClientNetArticlesRest {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
     }
 
-    public Response modifierUser() throws ClientErrorException {
-        return webTarget.path("modifierUser").request().post(null, Response.class);
+    public Response modifierUser(Object requestEntity) throws ClientErrorException, Exception {
+        Response response = webTarget.path("modifierClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response;
     }
 
     public void close() {
         client.close();
     }
-    
+
+
 }

@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
+import outils.Utilitaire;
+import session.CategorieFacade;
 import session.ClientFacade;
 
 /**
@@ -25,6 +27,8 @@ public class slCompte extends HttpServlet {
 
     @EJB
     private ClientFacade clientF;
+    @EJB
+    private CategorieFacade categorieF;
     private String erreur;
 
     /**
@@ -47,7 +51,6 @@ public class slCompte extends HttpServlet {
                 vueReponse = login(request);
             } else if (demande.equalsIgnoreCase("connecter.cpt")) {
                 vueReponse = connecter(request);
-                
             } else if (demande.equalsIgnoreCase("deconnecter.cpt")) {
                 vueReponse = deconnecter(request);
             } else if (demande.equalsIgnoreCase("voirCompte.cpt")) {
@@ -103,7 +106,7 @@ public class slCompte extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", null);
-            return ("/index.jsp");
+            return ("/dernierArticle.na");
         } catch (Exception e) {
             throw e;
         }
@@ -119,7 +122,7 @@ public class slCompte extends HttpServlet {
 
             if (clientF.connecter(login, pwd)) {
                 Client client = clientF.getClient();
-                vueReponse = "/index.jsp";
+                vueReponse = "/listeArticles.jsp";
                 HttpSession session = request.getSession(true);
                 session.setAttribute("userId", client.getIdClient());
             } else {
@@ -133,15 +136,67 @@ public class slCompte extends HttpServlet {
     }
 
     private String voirCompte(HttpServletRequest request) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HttpSession session = request.getSession(true);
+        int id = (int) session.getAttribute("userId");
+        Client client = clientF.lire(id);
+        request.setAttribute("clientR", client);
+        request.setAttribute("listeCategoriesR", categorieF.lister());
+        return "client.jsp";
     }
 
     private String validerCompte(HttpServletRequest request) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String vueReponse;
+        int id_client = 0;
+        try {
+
+            String id = request.getParameter("id_client");
+            Client client = new Client();
+            String titre = null;
+            // Si on est en Modification ou Ajout            
+            if (!id.equals("")) {
+                id_client = Integer.parseInt(id);
+                // Affecter l'Id de l'utilisateur à Modifier
+                client.setIdClient(id_client);
+                titre = "Modifier un profil";
+            }
+            // Peupler les propriétés de Utilisateur 
+ 
+            client.setLoginClient(request.getParameter("txtLogin"));
+            client.setPwdClient(request.getParameter("txtPwd"));
+            client.setIdentiteClient(request.getParameter("txtIdentite"));
+            client.setAdresseClient(request.getParameter("txtAdresse"));
+            client.setCredits(Integer.parseInt(request.getParameter("txtCredits")));
+            // Instancier l'objet Categorie de la classe Utilisateur
+            client.setIdCategorie(categorieF.lire(Integer.parseInt(request.getParameter("cbCategories"))));
+
+// Il faut conserver les valeurs pour pouvoir
+            // les réafficher en cas d'erreur
+            request.setAttribute("titre", titre);
+            request.setAttribute("clientR", client);
+            // Si on a un id c'est qu'il s'agit d'une modification
+            if (id_client > 0) {
+                clientF.modifier(client);
+            } else {
+                
+                clientF.ajouter(client);
+            }
+            vueReponse = "/listeArticles.jsp";
+            return (vueReponse);
+        } catch (Exception e) {
+            // On reste sur la même page qui est réaffichée
+            request.setAttribute("listeCategoriesR", categorieF.lister());
+            erreur = Utilitaire.getExceptionCause(e);
+            return "/client.jsp";
+        }
     }
 
     private String creerCompte(HttpServletRequest request) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            request.setAttribute("listeCategoriesR", categorieF.lister());
+            return ("/client.jsp");
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

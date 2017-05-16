@@ -9,6 +9,7 @@ import client.ClientNetArticlesRest;
 import dal.Client;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -66,4 +67,45 @@ public class ClientFacade {
             throw e;
         }
     }
+    
+    
+    public Response modifier(Client client) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            Response response = clientNetArticlesRest.modifierUser(client);
+            return response;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Response ajouter(Client client) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            Response response = clientNetArticlesRest.ajouterUser(client);
+            return response;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Response supprimer(int id) throws Exception {
+        try {
+             ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            Response response = clientNetArticlesRest.supprimerUser(id);
+            return response;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Client lire(int id) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            return clientNetArticlesRest.getUtilisateur(Client.class, id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
 }
