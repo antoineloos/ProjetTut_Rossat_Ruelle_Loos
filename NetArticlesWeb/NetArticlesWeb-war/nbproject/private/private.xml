@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCompte.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/CategorieFacade.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/client.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/client/ClientNetArticlesRest.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/outils/Utilitaire.java</file>
+            <file>file:/C:/Users/Epulapp/Desktop/ProjetTut/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/CategorieFacade.java</file>
+            <file>file:/C:/Users/Epulapp/Desktop/ProjetTut/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/index.jsp</file>
+            <file>file:/C:/Users/Epulapp/Desktop/ProjetTut/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/listeArticles.jsp</file>
+            <file>file:/C:/Users/Epulapp/Desktop/ProjetTut/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCompte.java</file>
+            <file>file:/C:/Users/Epulapp/Desktop/ProjetTut/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/ArticleFacade.java</file>
+            <file>file:/C:/Users/Epulapp/Desktop/ProjetTut/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/client/ClientNetArticlesRest.java</file>
         </group>
     </open-files>
 </project-private>

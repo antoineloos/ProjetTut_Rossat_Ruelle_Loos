@@ -5,6 +5,7 @@
  */
 package client;
 
+import dal.Article;
 import dal.Categorie;
 import java.util.List;
 import javax.json.JsonObject;
@@ -71,6 +72,19 @@ public class ClientNetArticlesRest {
             throw new Exception(message);
         }
         return response.readEntity(new GenericType<List<Client>>() {
+        });
+    }
+    
+     public List<Article> getArticles() throws ClientErrorException, Exception {
+        WebTarget resource = webTarget;
+        resource = resource.path("getArticles");
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response.readEntity(new GenericType<List<Article>>() {
         });
     }
 

@@ -5,9 +5,11 @@
  */
 package controleurs;
 
+import dal.Article;
 import dal.Client;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
 import outils.Utilitaire;
+import session.ArticleFacade;
 import session.CategorieFacade;
 import session.ClientFacade;
 
@@ -30,7 +33,8 @@ public class slCompte extends HttpServlet {
     @EJB
     private CategorieFacade categorieF;
     private String erreur;
-
+@EJB
+private ArticleFacade articleF;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -124,7 +128,9 @@ public class slCompte extends HttpServlet {
                 Client client = clientF.getClient();
                 vueReponse = "/listeArticles.jsp";
                 HttpSession session = request.getSession(true);
-                session.setAttribute("userId", client.getIdClient());
+                ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.lister();
+                request.setAttribute("lArticlesR", lstArticle);
+                request.setAttribute("userId", client.getIdClient());
             } else {
                 erreur = "Login ou mot de passe inconnus !";
             }
