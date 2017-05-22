@@ -22,6 +22,6 @@
     </div>  
     <div class="row">
         <label class="col-md-2 text-right">Domaine : </label>
-        <div class="col-md-6">${articleR.domaine.libdomaine}</div>
+        <div class="col-md-6">${articleR.idDomaine.libdomaine}</div>
     </div> 
 </div>

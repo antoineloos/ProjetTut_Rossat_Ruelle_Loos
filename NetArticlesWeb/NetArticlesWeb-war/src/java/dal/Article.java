@@ -28,6 +28,7 @@ public class Article implements Serializable {
     private Domaine idDomaine;
 
     public Article() {
+      
     }
 
     public Article(Integer idArticle) {

@@ -18,7 +18,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>slNetArticle</servlet-name>
-        <url-pattern>*.art</url-pattern>
+        <url-pattern>*.na</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>slCommande</servlet-name>

@@ -5,12 +5,17 @@
  */
 package controleurs;
 
+import dal.Article;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import session.ArticleFacade;
 
 /**
  *
@@ -27,23 +32,57 @@ public class slNetArticle extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private String erreur;
+    
+    @EJB
+    private ArticleFacade articleF;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet slNetArticle</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet slNetArticle at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         String demande;
+        String vueReponse = "/index.jsp";
+        erreur = "";
+        try {
+            demande = getDemande(request);
+            if (demande.equalsIgnoreCase("voirArticle.na")) {
+                vueReponse = voirArticle(request);
+            }
+
+
+        } catch (Exception e) {
+            erreur = e.getMessage();
+        } finally {
+            request.setAttribute("erreurR", erreur);
+            request.setAttribute("pageR", vueReponse);
+            RequestDispatcher dsp = request.getRequestDispatcher("/index.jsp");
+            if (vueReponse.contains(".na")) {
+                dsp = request.getRequestDispatcher(vueReponse);
+            }
+            dsp.forward(request, response);
         }
     }
 
+    private String voirArticle(HttpServletRequest request) throws Exception
+    {
+        try {
+
+            String id = request.getParameter("id_article");
+            Article art = articleF.lire(Integer.parseInt(id));
+            request.setAttribute("articleR", art);
+            
+            return ("voirArticle.jsp");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+     private String getDemande(HttpServletRequest request) {
+        String demande = "";
+        demande = request.getRequestURI();
+        demande = demande.substring(demande.lastIndexOf("/") + 1);
+        return demande;
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

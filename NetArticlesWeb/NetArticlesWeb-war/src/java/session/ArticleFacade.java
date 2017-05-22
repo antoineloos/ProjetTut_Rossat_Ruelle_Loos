@@ -49,7 +49,7 @@ public class ArticleFacade {
     public Article lire(int id) throws Exception {
         try {
             ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
-            return clientNetArticlesRest.getCategorie(Article.class, id);
+            return clientNetArticlesRest.getArticle(Article.class, id);
         } catch (Exception e) {
             throw e;
         }
