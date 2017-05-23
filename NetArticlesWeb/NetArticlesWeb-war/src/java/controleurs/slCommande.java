@@ -5,12 +5,19 @@
  */
 package controleurs;
 
+import dal.Article;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import session.ArticleFacade;
 
 /**
  *
@@ -18,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class slCommande extends HttpServlet {
 
+    @EJB
+    private ArticleFacade articleF;
+    private String erreur;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,21 +39,65 @@ public class slCommande extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet slCommande</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet slCommande at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+         String demande;
+        String vueReponse = "/index.jsp";
+        erreur = "";
+        try {
+            demande = getDemande(request);
+            if (demande.equalsIgnoreCase("ajoutPanier.cde")) {
+                vueReponse = ajouterPanier(request);
+            }
+
+
+        } catch (Exception e) {
+            erreur = e.getMessage();
+        } finally {
+            request.setAttribute("erreurR", erreur);
+            request.setAttribute("pageR", vueReponse);
+            RequestDispatcher dsp = request.getRequestDispatcher("/index.jsp");
+            if (vueReponse.contains(".na")) {
+                dsp = request.getRequestDispatcher(vueReponse);
+            }
+            dsp.forward(request, response);
         }
     }
+    
+     private String getDemande(HttpServletRequest request) {
+        String demande = "";
+        demande = request.getRequestURI();
+        demande = demande.substring(demande.lastIndexOf("/") + 1);
+        return demande;
+    }
 
+     private String ajouterPanier(HttpServletRequest request) throws Exception
+     {
+         try {
+
+            String id = request.getParameter("id_article");
+            Article art = articleF.lire(Integer.parseInt(id));
+            request.setAttribute("articleR", art);
+            HttpSession session = request.getSession(true);
+            
+            ArrayList<Article> pan = ((ArrayList<Article>)session.getAttribute("panier"));
+            pan.add(art);
+            request.setAttribute("montantTotalR", ComputeTotal(pan));
+            request.setAttribute("lArticlesPanierR",session.getAttribute("panier") );
+            
+            return ("panier.jsp");
+        } catch (Exception e) {
+            throw e;
+        }
+     }
+     
+     private double ComputeTotal(ArrayList<Article> lst)
+     {
+         double res = 0.0;
+         
+         for(Article a : lst) res +=   a.getPrix().doubleValue();
+         
+         return res;
+     }
+     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

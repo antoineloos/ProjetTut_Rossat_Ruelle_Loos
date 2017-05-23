@@ -130,7 +130,8 @@ private ArticleFacade articleF;
                 HttpSession session = request.getSession(true);
                 ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.lister();
                 request.setAttribute("lArticlesR", lstArticle);
-                request.setAttribute("userId", client.getIdClient());
+                session.setAttribute("userId", client.getIdClient());
+                session.setAttribute("panier", new ArrayList<Article>());
             } else {
                 erreur = "Login ou mot de passe inconnus !";
             }

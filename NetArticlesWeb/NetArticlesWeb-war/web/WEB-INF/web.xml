@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>slCommande</servlet-name>
-        <url-pattern>*.cmd</url-pattern>
+        <url-pattern>*.cde</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
