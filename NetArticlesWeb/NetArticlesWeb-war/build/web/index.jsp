@@ -2,11 +2,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="lib/css/book.css" />
         <link href="lib/css/appStyles.css" rel="stylesheet" type="text/css"/>
         <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>     
         <script src="lib/jquery/jquery-2.1.3.min.js" type="text/javascript"></script>        
         <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <script src="net_articles.js" type="text/javascript"></script>
+	
+	
         <title>Net Articles</title>
     </head>
     <body class="body">       
@@ -21,5 +24,7 @@
                 </c:if>   
             </div>
         </div>
+            
     </body>
+    <script src="lib/js/modernizr.custom.js"></script>
 </html>
