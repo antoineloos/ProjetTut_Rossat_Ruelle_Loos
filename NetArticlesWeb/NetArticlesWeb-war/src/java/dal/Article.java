@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -112,4 +113,22 @@ public class Article implements Serializable {
     public void setIdDomaine(Domaine idDomaine) {
         this.idDomaine = idDomaine;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Article other = (Article) obj;
+        return true;
+    }
+    
+    
 }

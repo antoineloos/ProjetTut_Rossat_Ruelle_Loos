@@ -9,6 +9,7 @@ import client.ClientNetArticlesRest;
 import dal.Article;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -54,4 +55,24 @@ public class ArticleFacade {
             throw e;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ArticleFacade other = (ArticleFacade) obj;
+        if (!Objects.equals(this.article, other.article)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

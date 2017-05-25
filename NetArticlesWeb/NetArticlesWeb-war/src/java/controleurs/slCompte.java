@@ -110,7 +110,11 @@ private ArticleFacade articleF;
         try {
             HttpSession session = request.getSession(true);
             session.setAttribute("userId", null);
-            return ("/dernierArticle.na");
+
+            Article art = articleF.lire(articleF.lister().size());
+            request.setAttribute("articleR", art);
+
+            return ("detailArticle.jsp");
         } catch (Exception e) {
             throw e;
         }

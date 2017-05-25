@@ -33,21 +33,22 @@ public class slNetArticle extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private String erreur;
-    
+
     @EJB
     private ArticleFacade articleF;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String demande;
+        String demande;
         String vueReponse = "/index.jsp";
         erreur = "";
         try {
             demande = getDemande(request);
             if (demande.equalsIgnoreCase("voirArticle.na")) {
                 vueReponse = voirArticle(request);
+            } else if (demande.equalsIgnoreCase("dernierArticle.na")) {
+                vueReponse = dernierArticle(request);
             }
-
 
         } catch (Exception e) {
             erreur = e.getMessage();
@@ -62,25 +63,37 @@ public class slNetArticle extends HttpServlet {
         }
     }
 
-    private String voirArticle(HttpServletRequest request) throws Exception
-    {
+    private String voirArticle(HttpServletRequest request) throws Exception {
         try {
 
             String id = request.getParameter("id_article");
             Article art = articleF.lire(Integer.parseInt(id));
             request.setAttribute("articleR", art);
-            
+
             return ("voirArticle.jsp");
         } catch (Exception e) {
             throw e;
         }
     }
-    
-     private String getDemande(HttpServletRequest request) {
+
+    private String getDemande(HttpServletRequest request) {
         String demande = "";
         demande = request.getRequestURI();
         demande = demande.substring(demande.lastIndexOf("/") + 1);
         return demande;
+    }
+    
+    
+    private String dernierArticle(HttpServletRequest request) throws Exception {
+        try {
+
+            Article art = articleF.lire(articleF.lister().size());
+            request.setAttribute("articleR", art);
+
+            return ("detailArticle.jsp");
+        } catch (Exception e) {
+            throw e;
+        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -121,5 +134,7 @@ public class slNetArticle extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+
 
 }
