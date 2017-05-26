@@ -156,6 +156,42 @@ public class WebServicesResource {
         return response;
     }
     
+     @GET
+    @Path("getDomaines")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDomaines() throws Exception {
+        Response response = null;
+        try {
+            List<Domaine> lDomaines = domaineF.findAll();
+            GenericEntity<List<Domaine>> lDomaine = new GenericEntity<List<Domaine>>(lDomaines) {
+            };
+            response = Response.status(Response.Status.OK).entity(lDomaine).build();
+        } catch (Exception ex) {
+            String msg = Utilitaire.getExceptionCause(ex);
+            JsonObject retour = Json.createObjectBuilder().add("message", msg).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+    
+    @GET
+    @Path("getAchetes/{idCustomer}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAchetes(@PathParam("idCustomer") Integer id) throws Exception {
+        Response response = null;
+        try {
+            List<Achete> lstAchetes = acheteF.getAcheteByCustomer(id);
+            GenericEntity<List<Achete>> lAchetes= new GenericEntity<List<Achete>>(lstAchetes) {
+            };
+            response = Response.status(Response.Status.OK).entity(lAchetes).build();
+        } catch (Exception ex) {
+            String msg = Utilitaire.getExceptionCause(ex);
+            JsonObject retour = Json.createObjectBuilder().add("message", msg).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+    
     @GET
     @Path("getArticles/{id}")
     @Produces(MediaType.APPLICATION_JSON)

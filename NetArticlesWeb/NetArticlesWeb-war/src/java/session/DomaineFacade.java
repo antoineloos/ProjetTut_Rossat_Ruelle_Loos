@@ -5,6 +5,11 @@
  */
 package session;
 
+import client.ClientNetArticlesRest;
+import dal.Article;
+import dal.Domaine;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -18,4 +23,16 @@ public class DomaineFacade {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    public List<Domaine> lister() throws Exception {
+
+        List<Domaine> lDomaines = new ArrayList<Domaine>();
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            lDomaines = clientNetArticlesRest.getDomaines();
+            return lDomaines;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

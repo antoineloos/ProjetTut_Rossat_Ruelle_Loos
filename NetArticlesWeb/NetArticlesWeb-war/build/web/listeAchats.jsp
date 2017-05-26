@@ -16,7 +16,7 @@
             <tr>
                 <td>${achateE.article.idArticle}</td>
                 <td>${achateE.article.titre}</td>
-                <td>${achateE.article.domaine.libdomaine}</td> 
+                <td>${achateE.article.idDomaine.libdomaine}</td> 
                 <td><fmt:formatDate pattern="dd/MM/yyyy" value="${achateE.dateAchat}" /></td>                     
                 <td><a href="fichiers/${achateE.article.fichier}">Télécharger</a></td>                    
             </tr>

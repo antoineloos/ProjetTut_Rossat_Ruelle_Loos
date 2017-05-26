@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="well">
     <div class="row">
-        <div class="col-md-3" >
+        <div class="col-md-3 col-md-offset-1" >
             <figure class='book' >
 
                 <!-- Front -->
@@ -42,7 +42,7 @@
                 
             </figure> 
         </div>
-        <div class="col-md-9">
+        <div class="col-md-7">
             <div class="row">
                 <label class="col-md-2 text-right">N° Article : </label>
                 <div class="col-md-6">${articleR.idArticle}</div>

@@ -5,8 +5,10 @@
  */
 package client;
 
+import dal.Achete;
 import dal.Article;
 import dal.Categorie;
+import dal.Domaine;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.ClientErrorException;
@@ -55,6 +57,8 @@ public class ClientNetArticlesRest {
         resource = resource.path(java.text.MessageFormat.format("getArticles/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
+     
+     
     
     public <T> T getConnexion(Class<T> responseType, String login) throws ClientErrorException {
         WebTarget resource = webTarget;
@@ -93,6 +97,19 @@ public class ClientNetArticlesRest {
         return response.readEntity(new GenericType<List<Article>>() {
         });
     }
+     
+     public List<Achete> getAchete( int id) throws ClientErrorException, Exception {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getAchetes/{0}", new Object[]{id}));
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response.readEntity(new GenericType<List<Achete>>() {
+        });
+    }
 
     public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
@@ -104,6 +121,19 @@ public class ClientNetArticlesRest {
             throw new Exception(message);
         }
         return response.readEntity(new GenericType<List<Categorie>>() {
+        });
+    }
+    
+     public List<Domaine> getDomaines() throws ClientErrorException, Exception {
+        WebTarget resource = webTarget;
+        resource = resource.path("getDomaines");
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response.readEntity(new GenericType<List<Domaine>>() {
         });
     }
 

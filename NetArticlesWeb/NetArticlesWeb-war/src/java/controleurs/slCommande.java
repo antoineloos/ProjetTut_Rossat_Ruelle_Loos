@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import session.AcheteFacade;
 import session.ArticleFacade;
+import session.DomaineFacade;
 
 /**
  *
@@ -27,6 +29,11 @@ public class slCommande extends HttpServlet {
 
     @EJB
     private ArticleFacade articleF;
+    @EJB
+    private AcheteFacade acheteF;
+    @EJB
+    private DomaineFacade domaineF;
+            
     private String erreur;
 
     /**
@@ -147,12 +154,18 @@ public class slCommande extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String listeDomaines(HttpServletRequest request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private String listeDomaines(HttpServletRequest request) throws Exception {
+        
+        request.setAttribute("lDomainesR",domaineF.lister());
+        return "rechercher.jsp";
     }
 
     private String listeAchats(HttpServletRequest request) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //lAchetesR
+        HttpSession session = request.getSession(true);
+        Integer idUser = (Integer) session.getAttribute("userId");
+        request.setAttribute("lAchetesR",acheteF.getAcheteByCustomer(idUser));
+        return "listeAchats.jsp";
     }
 
     private String voirPanier(HttpServletRequest request) {
@@ -165,6 +178,8 @@ public class slCommande extends HttpServlet {
         return ("panier.jsp");
     }
 
+  
+    
     private String supprimerPanier(HttpServletRequest request) throws Exception {
         try {
 

@@ -47,6 +47,7 @@ public class Achete implements Serializable {
     private Client client;
 
     public Achete() {
+        
     }
 
     public Achete(AchetePK achetePK) {
