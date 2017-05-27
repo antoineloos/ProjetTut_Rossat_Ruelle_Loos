@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +36,7 @@ public class slCommande extends HttpServlet {
     private DomaineFacade domaineF;
             
     private String erreur;
+    private List<Article> lstArticleBySelectedDomaine;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -64,6 +66,10 @@ public class slCommande extends HttpServlet {
                 vueReponse = listeDomaines(request);
             } else if (demande.equalsIgnoreCase("validerPanier.cde")) {
                 vueReponse = validerPanier(request);
+            }
+            else if( demande.equalsIgnoreCase("listeArticlesDomaine.cde"))
+            {
+               // vueReponse = listeArticleDomaines(request);
             }
 
         } catch (Exception e) {
@@ -178,6 +184,11 @@ public class slCommande extends HttpServlet {
         return ("panier.jsp");
     }
 
+    
+    
+//    private String listeArticleDomaines(HttpServletRequest request) {
+//        
+//    }
   
     
     private String supprimerPanier(HttpServletRequest request) throws Exception {
@@ -203,5 +214,7 @@ public class slCommande extends HttpServlet {
     private String validerPanier(HttpServletRequest request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }

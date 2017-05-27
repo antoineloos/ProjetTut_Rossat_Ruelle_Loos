@@ -110,6 +110,19 @@ public class ClientNetArticlesRest {
         return response.readEntity(new GenericType<List<Achete>>() {
         });
     }
+     
+     public List<Article> getArticleByDomaine( int id) throws ClientErrorException, Exception {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getArticles/{0}", new Object[]{id}));
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response.readEntity(new GenericType<List<Article>>() {
+        });
+    }
 
     public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;

@@ -55,6 +55,16 @@ public class ArticleFacade {
             throw e;
         }
     }
+    
+    public List<Article> getArticlesByDomaine (int id) throws Exception
+    {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            return clientNetArticlesRest.getArticleByDomaine( id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

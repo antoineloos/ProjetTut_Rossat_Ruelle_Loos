@@ -193,6 +193,24 @@ public class WebServicesResource {
     }
     
     @GET
+    @Path("getArticles/{idDomaine}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArticleByDomaine(@PathParam("idDomaine") Integer id) throws Exception {
+        Response response = null;
+        try {
+            List<Article> lstArticles = articleF.getArticlesByDomaine(id);
+            GenericEntity<List<Article>> lArticles= new GenericEntity<List<Article>>(lstArticles) {
+            };
+            response = Response.status(Response.Status.OK).entity(lArticles).build();
+        } catch (Exception ex) {
+            String msg = Utilitaire.getExceptionCause(ex);
+            JsonObject retour = Json.createObjectBuilder().add("message", msg).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+    
+    @GET
     @Path("getArticles/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Article getArticles(@PathParam("id") Integer id) throws Exception {

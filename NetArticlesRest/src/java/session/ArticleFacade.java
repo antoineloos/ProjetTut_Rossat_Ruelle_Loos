@@ -5,7 +5,9 @@
  */
 package session;
 
+import dal.Achete;
 import dal.Article;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +27,11 @@ public class ArticleFacade extends AbstractFacade<Article> {
         return em;
     }
 
+    public List<Article> getArticlesByDomaine(int id) {
+        return em.createNamedQuery("Article.findByDomaine").setParameter("idDomaine", id).getResultList();
+
+    }
+    
     public ArticleFacade() {
         super(Article.class);
     }
