@@ -111,10 +111,8 @@ public class ClientNetArticlesRest {
         });
     }
      
-     public List<Article> getArticleByDomaine( int id) throws ClientErrorException, Exception {
-        WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("getArticles/{0}", new Object[]{id}));
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+    public List<Article> getArticlesByDomaine(Object requestEntity) throws ClientErrorException, Exception {
+        Response response = webTarget.path("getArticlesByDomaine").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -124,6 +122,12 @@ public class ClientNetArticlesRest {
         });
     }
 
+    public <T> T getDomaine(Class<T> responseType, int id) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getDomaine/{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+    
     public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getCategories");

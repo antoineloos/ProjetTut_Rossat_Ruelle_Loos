@@ -7,10 +7,12 @@ package session;
 
 import dal.Achete;
 import dal.Article;
+import dal.Domaine;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,9 +29,15 @@ public class ArticleFacade extends AbstractFacade<Article> {
         return em;
     }
 
-    public List<Article> getArticlesByDomaine(int id) {
-        return em.createNamedQuery("Article.findByDomaine").setParameter("idDomaine", id).getResultList();
-
+   
+    public List<Article> listeByDomaine(Domaine idDomaine) throws Exception {
+        try {
+            Query requete = em.createNamedQuery("Article.findByDomaine");
+            requete.setParameter("idDomaine", idDomaine);
+            return (requete.getResultList());
+        } catch (Exception e) {
+            throw e;
+        }
     }
     
     public ArticleFacade() {

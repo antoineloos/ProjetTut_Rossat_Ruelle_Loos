@@ -35,4 +35,13 @@ public class DomaineFacade {
             throw e;
         }
     }
+    
+    public Domaine lire(int id) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            return clientNetArticlesRest.getDomaine(Domaine.class, id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

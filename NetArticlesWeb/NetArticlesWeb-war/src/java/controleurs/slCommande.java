@@ -6,6 +6,7 @@
 package controleurs;
 
 import dal.Article;
+import dal.Domaine;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -69,7 +70,7 @@ public class slCommande extends HttpServlet {
             }
             else if( demande.equalsIgnoreCase("listeArticlesDomaine.cde"))
             {
-               // vueReponse = listeArticleDomaines(request);
+                vueReponse = listeArticlesDomaine(request);
             }
 
         } catch (Exception e) {
@@ -186,9 +187,24 @@ public class slCommande extends HttpServlet {
 
     
     
-//    private String listeArticleDomaines(HttpServletRequest request) {
-//        
-//    }
+    private String listeArticlesDomaine(HttpServletRequest request) {
+        String vueReponse = "/listeArticles.jsp";
+        erreur = "";
+        try {
+            String id_domaine = request.getParameter("cbDomaines");
+            Domaine domaine = domaineF.lire(Integer.parseInt(id_domaine));
+            
+            ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.listerByDomaine(domaine);
+            request.setAttribute("lArticlesR", lstArticle);
+            request.setAttribute("id_domaineR", id_domaine);
+
+        } catch (Exception e) {
+            erreur = e.getMessage();
+        } finally {
+            return (vueReponse);
+        }
+
+    }
   
     
     private String supprimerPanier(HttpServletRequest request) throws Exception {

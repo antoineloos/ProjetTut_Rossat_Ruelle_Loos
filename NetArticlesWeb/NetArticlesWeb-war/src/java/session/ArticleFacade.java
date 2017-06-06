@@ -7,6 +7,7 @@ package session;
 
 import client.ClientNetArticlesRest;
 import dal.Article;
+import dal.Domaine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,11 +57,11 @@ public class ArticleFacade {
         }
     }
     
-    public List<Article> getArticlesByDomaine (int id) throws Exception
-    {
+        public List<Article> listerByDomaine(Domaine domaine) throws Exception {
         try {
             ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
-            return clientNetArticlesRest.getArticleByDomaine( id);
+            List<Article> response = clientNetArticlesRest.getArticlesByDomaine(domaine);
+            return response;
         } catch (Exception e) {
             throw e;
         }

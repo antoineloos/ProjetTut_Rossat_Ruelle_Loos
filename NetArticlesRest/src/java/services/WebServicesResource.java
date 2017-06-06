@@ -192,19 +192,29 @@ public class WebServicesResource {
         return response;
     }
     
-    @GET
-    @Path("getArticles/{idDomaine}")
+  @GET
+    @Path("getDomaine/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getArticleByDomaine(@PathParam("idDomaine") Integer id) throws Exception {
+    public Domaine getDomaine(@PathParam("id") Integer id) throws Exception {
+        return domaineF.find(id);
+    }
+    
+    @POST
+    @Path("getArticlesByDomaine")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArticlesByDomaine(Domaine domaine) throws Exception {
         Response response = null;
         try {
-            List<Article> lstArticles = articleF.getArticlesByDomaine(id);
-            GenericEntity<List<Article>> lArticles= new GenericEntity<List<Article>>(lstArticles) {
-            };
-            response = Response.status(Response.Status.OK).entity(lArticles).build();
+            if (domaine != null) {
+
+                List<Article> lstArticles = articleF.listeByDomaine(domaine);
+                GenericEntity<List<Article>> lArticles = new GenericEntity<List<Article>>(lstArticles) {
+                };
+                response = Response.status(Response.Status.OK).entity(lArticles).build();
+            }
         } catch (Exception ex) {
             String msg = Utilitaire.getExceptionCause(ex);
-            JsonObject retour = Json.createObjectBuilder().add("message", msg).build();
+            JsonObject retour = Json.createObjectBuilder().add("message", Utilitaire.getExceptionCause(ex)).build();
             response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
         }
         return response;
