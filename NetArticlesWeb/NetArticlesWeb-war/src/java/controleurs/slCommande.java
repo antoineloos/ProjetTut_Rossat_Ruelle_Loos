@@ -193,7 +193,6 @@ public class slCommande extends HttpServlet {
         try {
             String id_domaine = request.getParameter("cbDomaines");
             Domaine domaine = domaineF.lire(Integer.parseInt(id_domaine));
-            
             ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.listerByDomaine(domaine);
             request.setAttribute("lArticlesR", lstArticle);
             request.setAttribute("id_domaineR", id_domaine);
@@ -227,8 +226,16 @@ public class slCommande extends HttpServlet {
         }
     }
 
-    private String validerPanier(HttpServletRequest request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private String validerPanier(HttpServletRequest request) throws Exception {
+        try {
+            HttpSession session = request.getSession(true);
+            ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
+            Integer totalPanier = (int) ComputeTotal(pan);
+            
+            return("");
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     
