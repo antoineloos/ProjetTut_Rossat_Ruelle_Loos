@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/login.jsp</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/client/ClientBanqueRest.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/DomaineFacade.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCommande.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/CompteFacade.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/dal/Compte.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/client/ClientNetArticlesRest.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCompte.java</file>
+            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/panier.jsp</file>
+        </group>
     </open-files>
 </project-private>

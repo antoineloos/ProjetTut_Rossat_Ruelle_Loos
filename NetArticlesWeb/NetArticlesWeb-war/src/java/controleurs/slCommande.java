@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.AcheteFacade;
 import session.ArticleFacade;
+import session.CompteFacade;
 import session.DomaineFacade;
+import utils.Transaction;
 
 /**
  *
@@ -35,7 +37,9 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
-            
+    @EJB
+    private CompteFacade compteF;
+
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
 
@@ -67,9 +71,7 @@ public class slCommande extends HttpServlet {
                 vueReponse = listeDomaines(request);
             } else if (demande.equalsIgnoreCase("validerPanier.cde")) {
                 vueReponse = validerPanier(request);
-            }
-            else if( demande.equalsIgnoreCase("listeArticlesDomaine.cde"))
-            {
+            } else if (demande.equalsIgnoreCase("listeArticlesDomaine.cde")) {
                 vueReponse = listeArticlesDomaine(request);
             }
 
@@ -162,8 +164,8 @@ public class slCommande extends HttpServlet {
     }// </editor-fold>
 
     private String listeDomaines(HttpServletRequest request) throws Exception {
-        
-        request.setAttribute("lDomainesR",domaineF.lister());
+
+        request.setAttribute("lDomainesR", domaineF.lister());
         return "rechercher.jsp";
     }
 
@@ -171,7 +173,7 @@ public class slCommande extends HttpServlet {
         //lAchetesR
         HttpSession session = request.getSession(true);
         Integer idUser = (Integer) session.getAttribute("userId");
-        request.setAttribute("lAchetesR",acheteF.getAcheteByCustomer(idUser));
+        request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(idUser));
         return "listeAchats.jsp";
     }
 
@@ -185,8 +187,6 @@ public class slCommande extends HttpServlet {
         return ("panier.jsp");
     }
 
-    
-    
     private String listeArticlesDomaine(HttpServletRequest request) {
         String vueReponse = "/listeArticles.jsp";
         erreur = "";
@@ -204,8 +204,7 @@ public class slCommande extends HttpServlet {
         }
 
     }
-  
-    
+
     private String supprimerPanier(HttpServletRequest request) throws Exception {
         try {
 
@@ -214,7 +213,7 @@ public class slCommande extends HttpServlet {
             HttpSession session = request.getSession(true);
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-            
+
             pan.remove(art);
             //session.setAttribute("panier", pan);
             request.setAttribute("montantTotalR", ComputeTotal(pan));
@@ -230,14 +229,18 @@ public class slCommande extends HttpServlet {
         try {
             HttpSession session = request.getSession(true);
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-            Integer totalPanier = (int) ComputeTotal(pan);
             
-            return("");
+            Integer id = (Integer) session.getAttribute("userId"); 
+            Integer tot = (int)ComputeTotal(pan);
+            Transaction transaction = new Transaction(id,tot);
+            
+            Boolean compteOk = compteF.debiterCompte(transaction);
+            System.out.println(String.valueOf(compteOk));
+            
+            return ("");
         } catch (Exception e) {
             throw e;
         }
     }
-
-    
 
 }

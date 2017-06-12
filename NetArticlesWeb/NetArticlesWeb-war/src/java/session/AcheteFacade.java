@@ -8,10 +8,12 @@ package session;
 import client.ClientNetArticlesRest;
 import dal.Achete;
 import dal.Article;
+import dal.Client;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -21,13 +23,23 @@ import javax.ejb.LocalBean;
 @LocalBean
 public class AcheteFacade {
 
-   public List<Achete> getAcheteByCustomer(int id) throws Exception {
+    public List<Achete> getAcheteByCustomer(int id) throws Exception {
 
         List<Achete> lAchetes = new ArrayList<Achete>();
         try {
             ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
             lAchetes = clientNetArticlesRest.getAchete(id);
             return lAchetes;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public Response ajoutAchat(Achete achete) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            Response response = clientNetArticlesRest.ajoutAchat(achete);
+            return response; 
         } catch (Exception e) {
             throw e;
         }
