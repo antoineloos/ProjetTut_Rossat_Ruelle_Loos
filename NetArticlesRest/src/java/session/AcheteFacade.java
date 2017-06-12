@@ -6,6 +6,7 @@
 package session;
 
 import dal.Achete;
+import dal.Client;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,6 +30,14 @@ public class AcheteFacade extends AbstractFacade<Achete> {
     public List<Achete> getAcheteByCustomer(int id) {
         return em.createNamedQuery("Achete.findByIdClient").setParameter("idClient", id).getResultList();
 
+    }
+
+    public void ajouter(Achete achete) throws Exception {
+        try {
+            em.persist(achete);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public AcheteFacade() {

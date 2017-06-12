@@ -10,6 +10,7 @@ import client.ClientNetArticlesRest;
 import dal.Compte;
 import javax.ejb.*;
 import javax.ws.rs.core.Response;
+import utils.Transaction;
 
 /**
  *
@@ -29,13 +30,15 @@ public class CompteFacade {
         this.compte = compte;
     }
 
-    public Response debiterCompte(Compte compte) throws Exception {
+    public Boolean debiterCompte(Transaction transaction) throws Exception {
         try {
             ClientBanqueRest clientBanqueRest = new ClientBanqueRest();
-            Response response = clientBanqueRest.debiterCompte();
-            return response;
+            Boolean bool = clientBanqueRest.debiterCompte(transaction);
+            return bool;
         } catch (Exception e) {
             throw e;
         }
     }
+    
+   
 }

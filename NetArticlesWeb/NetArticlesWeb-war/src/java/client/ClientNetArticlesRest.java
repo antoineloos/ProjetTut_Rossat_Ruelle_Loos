@@ -52,14 +52,12 @@ public class ClientNetArticlesRest {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
 
-     public <T> T getArticle(Class<T> responseType, int id) throws ClientErrorException {
+    public <T> T getArticle(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getArticles/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get(responseType);
     }
-     
-     
-    
+
     public <T> T getConnexion(Class<T> responseType, String login) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getConnexion/{0}", new Object[]{login}));
@@ -85,8 +83,8 @@ public class ClientNetArticlesRest {
         return response.readEntity(new GenericType<List<Client>>() {
         });
     }
-    
-     public List<Article> getArticles() throws ClientErrorException, Exception {
+
+    public List<Article> getArticles() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getArticles");
         Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
@@ -98,8 +96,8 @@ public class ClientNetArticlesRest {
         return response.readEntity(new GenericType<List<Article>>() {
         });
     }
-     
-     public List<Achete> getAchete( int id) throws ClientErrorException, Exception {
+
+    public List<Achete> getAchete(int id) throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getAchetes/{0}", new Object[]{id}));
         Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
@@ -111,7 +109,7 @@ public class ClientNetArticlesRest {
         return response.readEntity(new GenericType<List<Achete>>() {
         });
     }
-     
+
     public List<Article> getArticlesByDomaine(Object requestEntity) throws ClientErrorException, Exception {
         Response response = webTarget.path("getArticlesByDomaine").request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8"), Response.class);
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
@@ -128,7 +126,7 @@ public class ClientNetArticlesRest {
         resource = resource.path(java.text.MessageFormat.format("getDomaine/{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
-    
+
     public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getCategories");
@@ -141,8 +139,8 @@ public class ClientNetArticlesRest {
         return response.readEntity(new GenericType<List<Categorie>>() {
         });
     }
-    
-     public List<Domaine> getDomaines() throws ClientErrorException, Exception {
+
+    public List<Domaine> getDomaines() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getDomaines");
         Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
@@ -194,5 +192,18 @@ public class ClientNetArticlesRest {
         client.close();
     }
 
+    public Response ajoutAchat(Achete achete) throws Exception {
+        Response response = webTarget.path("ajoutAchat").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(achete, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        try {
+            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+                String message = jsonObject.getString("message");
+                throw new Exception(message);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return response;
+    }
 
 }

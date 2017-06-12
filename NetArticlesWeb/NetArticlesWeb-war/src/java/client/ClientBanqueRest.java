@@ -5,13 +5,16 @@
  */
 package client;
 
+import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import outils.Utilitaire;
+import utils.Transaction;
 
 /**
  * Jersey REST client generated for REST resource:GenericResource [generic]<br>
@@ -46,17 +49,37 @@ public class ClientBanqueRest {
         return response;
     }
 
-    public Response debiterCompte() throws ClientErrorException {
-        return webTarget.path("debiterCompte").request().post(null, Response.class);
+    public Boolean debiterCompte(Object transact) throws ClientErrorException, Exception {
+        try {
+            Response response = webTarget.path("debiterCompte").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(transact, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+                return jsonObject.getBoolean("isDebite");
+                
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
-    public String getJson() throws ClientErrorException {
+   
+
+    public  String getJson() throws ClientErrorException {
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
     }
 
+   
     public void close() {
         client.close();
     }
-    
+
+    public <T> T getTest(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("getTest");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        
+    }
 }
