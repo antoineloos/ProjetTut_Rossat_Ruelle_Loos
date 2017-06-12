@@ -43,37 +43,38 @@ public class ClientNetArticlesRest {
     }
 
     public void putJson(Object requestEntity) throws ClientErrorException {
-        webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON));
+        webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8"));
     }
 
     public <T> T getUtilisateur(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getUtilisateur/{0}", new Object[]{id}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
 
     public <T> T getArticle(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getArticles/{0}", new Object[]{id}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get(responseType);
     }
 
     public <T> T getConnexion(Class<T> responseType, String login) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getConnexion/{0}", new Object[]{login}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
 
     public <T> T getCategorie(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getCategorie/{0}", new Object[]{id}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
 
     public List<Client> getUtilisateurs() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getUtilisateurs");
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
+        
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -86,7 +87,7 @@ public class ClientNetArticlesRest {
     public List<Article> getArticles() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getArticles");
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -99,7 +100,7 @@ public class ClientNetArticlesRest {
     public List<Achete> getAchete(int id) throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getAchetes/{0}", new Object[]{id}));
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -110,7 +111,7 @@ public class ClientNetArticlesRest {
     }
 
     public List<Article> getArticlesByDomaine(Object requestEntity) throws ClientErrorException, Exception {
-        Response response = webTarget.path("getArticlesByDomaine").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        Response response = webTarget.path("getArticlesByDomaine").request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8"), Response.class);
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -123,13 +124,13 @@ public class ClientNetArticlesRest {
     public <T> T getDomaine(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getDomaine/{0}", new Object[]{id}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
 
     public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getCategories");
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -142,7 +143,7 @@ public class ClientNetArticlesRest {
     public List<Domaine> getDomaines() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getDomaines");
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -153,7 +154,7 @@ public class ClientNetArticlesRest {
     }
 
     public Response ajouterUser(Object requestEntity) throws ClientErrorException, Exception {
-        Response response = webTarget.path("ajouterClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        Response response = webTarget.path("ajouterClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -163,7 +164,7 @@ public class ClientNetArticlesRest {
     }
 
     public Response supprimerUser(Object requestEntity) throws ClientErrorException, Exception {
-        Response response = webTarget.path("supprimerClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        Response response = webTarget.path("supprimerClient").request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -174,7 +175,7 @@ public class ClientNetArticlesRest {
 
     public String getJson() throws ClientErrorException {
         WebTarget resource = webTarget;
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get(String.class);
     }
 
     public Response modifierUser(Object requestEntity) throws ClientErrorException, Exception {
