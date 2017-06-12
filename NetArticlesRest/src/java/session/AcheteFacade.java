@@ -32,7 +32,7 @@ public class AcheteFacade extends AbstractFacade<Achete> {
 
     }
 
-    public void ajouter(Achete achete) throws Exception {
+    public void ajouterAchat(Achete achete) throws Exception {
         try {
             em.persist(achete);
         } catch (Exception e) {

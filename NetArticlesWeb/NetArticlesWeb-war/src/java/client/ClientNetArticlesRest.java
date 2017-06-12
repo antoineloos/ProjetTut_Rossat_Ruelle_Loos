@@ -192,8 +192,8 @@ public class ClientNetArticlesRest {
         client.close();
     }
 
-    public Response ajoutAchat(Achete achete) throws Exception {
-        Response response = webTarget.path("ajoutAchat").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(achete, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+    public Response ajouterAchat(Achete achete) throws Exception {
+        Response response = webTarget.path("ajouterAchat").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(achete, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
         try {
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));

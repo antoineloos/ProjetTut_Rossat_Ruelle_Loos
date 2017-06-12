@@ -5,12 +5,16 @@
  */
 package controleurs;
 
+import dal.Achete;
 import dal.Article;
 import dal.Domaine;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import static java.util.Arrays.stream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -95,11 +99,13 @@ public class slCommande extends HttpServlet {
         return demande;
     }
 
+    // A VOIR SI ON A LE DROIT 
     private String ajouterPanier(HttpServletRequest request) throws Exception {
         try {
 
             String id = request.getParameter("id_article");
             Article art = articleF.lire(Integer.parseInt(id));
+
             request.setAttribute("articleR", art);
             HttpSession session = request.getSession(true);
 
@@ -228,16 +234,34 @@ public class slCommande extends HttpServlet {
     private String validerPanier(HttpServletRequest request) throws Exception {
         try {
             HttpSession session = request.getSession(true);
+            Integer id = (Integer) session.getAttribute("userId");
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-            
-            Integer id = (Integer) session.getAttribute("userId"); 
-            Integer tot = (int)ComputeTotal(pan);
-            Transaction transaction = new Transaction(id,tot);
-            
-            Boolean compteOk = compteF.debiterCompte(transaction);
-            System.out.println(String.valueOf(compteOk));
-            
-            return ("");
+            List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
+
+            ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
+
+            for (Article a : tmp) {
+                if (listeAchats.stream().anyMatch(art -> art.getArticle().getIdArticle() == a.getIdArticle())) {
+                    pan.remove(a);
+                }
+            }
+
+            Integer tot = (int) ComputeTotal(pan);
+            Transaction transaction = new Transaction(id, tot);
+
+            if (!pan.isEmpty()) {
+                if (compteF.debiterCompte(transaction)) {
+                    Date today = Calendar.getInstance().getTime();
+                    for (Article a : pan) {
+                        Achete achat = new Achete(id, a.getIdArticle(), today);
+                        acheteF.ajouterAchat(achat);
+                    }
+                }
+            }
+            Integer res =  acheteF.getAcheteByCustomer(id).size();
+            System.out.println(String.valueOf(res));
+            request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(id));
+            return ("listeAchats.jsp");
         } catch (Exception e) {
             throw e;
         }

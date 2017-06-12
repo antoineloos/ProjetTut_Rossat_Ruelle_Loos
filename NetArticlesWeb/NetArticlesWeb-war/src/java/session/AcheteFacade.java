@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 @LocalBean
 public class AcheteFacade {
 
+    // Retourne la liste des achats du client
     public List<Achete> getAcheteByCustomer(int id) throws Exception {
 
         List<Achete> lAchetes = new ArrayList<Achete>();
@@ -35,10 +36,10 @@ public class AcheteFacade {
         }
     }
 
-    public Response ajoutAchat(Achete achete) throws Exception {
+    public Response ajouterAchat(Achete achete) throws Exception {
         try {
             ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
-            Response response = clientNetArticlesRest.ajoutAchat(achete);
+            Response response = clientNetArticlesRest.ajouterAchat(achete);
             return response; 
         } catch (Exception e) {
             throw e;

@@ -357,12 +357,11 @@ public class WebServicesResource {
     @POST
     @Path("ajouterAchat")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response ajouterAchat(Client client) throws Exception {
+    public Response ajouterAchat(Achete achete) throws Exception {
         Response response = null;
         try {
-            if (client != null) {
-
-                clientF.create(client);
+            if (achete != null) {
+                acheteF.create(achete);
                 response = Response.status(Response.Status.OK).build();
             }
         } catch (Exception ex) {
