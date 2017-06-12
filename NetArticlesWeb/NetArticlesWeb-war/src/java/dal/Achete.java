@@ -26,8 +26,9 @@ public class Achete{
         this.achetePK = achetePK;
     }
 
-    public Achete(int idClient, int idArticle) {
+    public Achete(int idClient, int idArticle, Date dateAchat) {
         this.achetePK = new AchetePK(idClient, idArticle);
+        this.dateAchat = dateAchat;
     }
 
     public AchetePK getAchetePK() {
