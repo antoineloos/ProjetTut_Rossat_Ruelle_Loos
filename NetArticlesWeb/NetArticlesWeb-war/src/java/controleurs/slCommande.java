@@ -42,11 +42,10 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
-<<<<<<< HEAD
-=======
+
     @EJB
     private CompteFacade compteF;
->>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
+
 
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
@@ -232,14 +231,14 @@ public class slCommande extends HttpServlet {
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
 
-<<<<<<< HEAD
+
             for(int i = 0;i<pan.size();i++){
                 if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
             }
             //pan.remove(art);
-=======
+
             pan.remove(art);
->>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
+
             //session.setAttribute("panier", pan);
             request.setAttribute("montantTotalR", ComputeTotal(pan));
             request.setAttribute("lArticlesPanierR", pan);
@@ -255,11 +254,11 @@ public class slCommande extends HttpServlet {
             HttpSession session = request.getSession(true);
             Integer id = (Integer) session.getAttribute("userId");
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-<<<<<<< HEAD
+
             Integer totalPanier = (int) ComputeTotal(pan);
 
-            return ("");
-=======
+            
+
             List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
 
             ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
@@ -286,7 +285,7 @@ public class slCommande extends HttpServlet {
             System.out.println(String.valueOf(res));
             request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(id));
             return ("listeAchats.jsp");
->>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
+
         } catch (Exception e) {
             throw e;
         }
