@@ -114,6 +114,20 @@ public class Article implements Serializable {
         this.idDomaine = idDomaine;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.idArticle);
+        hash = 23 * hash + Objects.hashCode(this.titre);
+        hash = 23 * hash + Objects.hashCode(this.resume);
+        hash = 23 * hash + Objects.hashCode(this.prix);
+        hash = 23 * hash + Objects.hashCode(this.dateArticle);
+        hash = 23 * hash + Objects.hashCode(this.fichier);
+        hash = 23 * hash + Objects.hashCode(this.redigeCollection);
+        hash = 23 * hash + Objects.hashCode(this.acheteCollection);
+        hash = 23 * hash + Objects.hashCode(this.idDomaine);
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -127,8 +141,38 @@ public class Article implements Serializable {
             return false;
         }
         final Article other = (Article) obj;
+        if (!Objects.equals(this.titre, other.titre)) {
+            return false;
+        }
+        if (!Objects.equals(this.resume, other.resume)) {
+            return false;
+        }
+        if (!Objects.equals(this.fichier, other.fichier)) {
+            return false;
+        }
+        if (!Objects.equals(this.idArticle, other.idArticle)) {
+            return false;
+        }
+        if (!Objects.equals(this.prix, other.prix)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateArticle, other.dateArticle)) {
+            return false;
+        }
+        if (!Objects.equals(this.redigeCollection, other.redigeCollection)) {
+            return false;
+        }
+        if (!Objects.equals(this.acheteCollection, other.acheteCollection)) {
+            return false;
+        }
+        if (!Objects.equals(this.idDomaine, other.idDomaine)) {
+            return false;
+        }
         return true;
     }
+
+
+
     
     
 }

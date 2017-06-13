@@ -33,8 +33,9 @@ public class slCompte extends HttpServlet {
     @EJB
     private CategorieFacade categorieF;
     private String erreur;
-@EJB
-private ArticleFacade articleF;
+    @EJB
+    private ArticleFacade articleF;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -135,7 +136,7 @@ private ArticleFacade articleF;
                 ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.lister();
                 request.setAttribute("lArticlesR", lstArticle);
                 session.setAttribute("userId", client.getIdClient());
-                session.setAttribute("panier", new ArrayList<Article>());
+                // session.setAttribute("panier", new ArrayList<Article>());
             } else {
                 erreur = "Login ou mot de passe inconnus !";
             }
@@ -171,7 +172,7 @@ private ArticleFacade articleF;
                 titre = "Modifier un profil";
             }
             // Peupler les propriétés de Utilisateur 
- 
+
             client.setLoginClient(request.getParameter("txtLogin"));
             client.setPwdClient(request.getParameter("txtPwd"));
             client.setIdentiteClient(request.getParameter("txtIdentite"));
@@ -188,7 +189,7 @@ private ArticleFacade articleF;
             if (id_client > 0) {
                 clientF.modifier(client);
             } else {
-                
+
                 clientF.ajouter(client);
             }
             vueReponse = "/listeArticles.jsp";

@@ -6,6 +6,7 @@
 package dal;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  *
@@ -48,4 +49,40 @@ public class Domaine{
     public void setArticleCollection(Collection<Article> articleCollection) {
         this.articleCollection = articleCollection;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.idDomaine);
+        hash = 89 * hash + Objects.hashCode(this.libdomaine);
+        hash = 89 * hash + Objects.hashCode(this.articleCollection);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Domaine other = (Domaine) obj;
+        if (!Objects.equals(this.libdomaine, other.libdomaine)) {
+            return false;
+        }
+        if (!Objects.equals(this.idDomaine, other.idDomaine)) {
+            return false;
+        }
+        if (!Objects.equals(this.articleCollection, other.articleCollection)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 }

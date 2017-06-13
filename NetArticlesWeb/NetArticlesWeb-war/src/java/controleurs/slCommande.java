@@ -16,6 +16,7 @@ import static java.util.Arrays.stream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -109,8 +110,14 @@ public class slCommande extends HttpServlet {
             request.setAttribute("articleR", art);
             HttpSession session = request.getSession(true);
 
+            if (session.getAttribute("panier") == null) {
+                session.setAttribute("panier", new ArrayList<Article>());
+            }
+
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
+
             pan.add(art);
+
             request.setAttribute("montantTotalR", ComputeTotal(pan));
             request.setAttribute("lArticlesPanierR", session.getAttribute("panier"));
 
@@ -185,7 +192,9 @@ public class slCommande extends HttpServlet {
 
     private String voirPanier(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-
+        if (session.getAttribute("userId") == null) {
+            return ("/login.jsp");
+        }
         ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
         request.setAttribute("montantTotalR", ComputeTotal(pan));
         request.setAttribute("lArticlesPanierR", session.getAttribute("panier"));
@@ -220,7 +229,10 @@ public class slCommande extends HttpServlet {
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
 
-            pan.remove(art);
+            for(int i = 0;i<pan.size();i++){
+                if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
+            }
+
             //session.setAttribute("panier", pan);
             request.setAttribute("montantTotalR", ComputeTotal(pan));
             request.setAttribute("lArticlesPanierR", pan);
@@ -236,14 +248,22 @@ public class slCommande extends HttpServlet {
             HttpSession session = request.getSession(true);
             Integer id = (Integer) session.getAttribute("userId");
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
+
+    
+
             List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
 
             ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
-
+            
+            int i = 0;
             for (Article a : tmp) {
-                if (listeAchats.stream().anyMatch(art -> art.getArticle().getIdArticle() == a.getIdArticle())) {
-                    pan.remove(a);
+//                if (listeAchats.stream().anyMatch(art -> art.getArticle().getIdArticle() == a.getIdArticle())) {
+//                    pan.remove(a);
+//                }
+                for(Achete achete : listeAchats){
+                    if(achete.getArticle().getIdArticle() == a.getIdArticle()) pan.remove(i);
                 }
+                i++;
             }
 
             Integer tot = (int) ComputeTotal(pan);
@@ -258,10 +278,13 @@ public class slCommande extends HttpServlet {
                     }
                 }
             }
+
             Integer res =  acheteF.getAcheteByCustomer(id).size();
             System.out.println(String.valueOf(res));
             request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(id));
+
             return ("listeAchats.jsp");
+
         } catch (Exception e) {
             throw e;
         }

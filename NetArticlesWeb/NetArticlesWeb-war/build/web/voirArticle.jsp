@@ -5,7 +5,7 @@
     <a  class="btn btn-primary pull-left" href="ajoutPanier.cde?id_article=${articleR.idArticle}"><span class="glyphicon glyphicon-log-in"></span> Acquérir cet article</a>
     &nbsp;
     <c:if test="${id_domaineR != null}">
-        <a class="btn btn-primary pull-right" href="listeDomaines.cde?id_domaine=${articleR.idDomaine.getIdDomaine()}"><span class="glyphicon glyphicon-list"></span> Retour liste</a>
+        <a class="btn btn-primary pull-right" href="listeArticlesDomaine.cde?cbDomaines=${articleR.idDomaine.getIdDomaine()}"><span class="glyphicon glyphicon-list"></span> Retour liste</a>
     </c:if>
 
     <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
