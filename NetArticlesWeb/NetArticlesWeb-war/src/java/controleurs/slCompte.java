@@ -135,7 +135,7 @@ private ArticleFacade articleF;
                 ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.lister();
                 request.setAttribute("lArticlesR", lstArticle);
                 session.setAttribute("userId", client.getIdClient());
-                session.setAttribute("panier", new ArrayList<Article>());
+               // session.setAttribute("panier", new ArrayList<Article>());
             } else {
                 erreur = "Login ou mot de passe inconnus !";
             }

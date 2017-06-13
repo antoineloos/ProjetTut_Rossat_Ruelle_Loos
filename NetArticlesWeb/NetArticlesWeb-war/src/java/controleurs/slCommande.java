@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,7 +36,7 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
-            
+
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
 
@@ -67,9 +68,7 @@ public class slCommande extends HttpServlet {
                 vueReponse = listeDomaines(request);
             } else if (demande.equalsIgnoreCase("validerPanier.cde")) {
                 vueReponse = validerPanier(request);
-            }
-            else if( demande.equalsIgnoreCase("listeArticlesDomaine.cde"))
-            {
+            } else if (demande.equalsIgnoreCase("listeArticlesDomaine.cde")) {
                 vueReponse = listeArticlesDomaine(request);
             }
 
@@ -101,8 +100,14 @@ public class slCommande extends HttpServlet {
             request.setAttribute("articleR", art);
             HttpSession session = request.getSession(true);
 
+            if (session.getAttribute("panier") == null) {
+                session.setAttribute("panier", new ArrayList<Article>());
+            }
+
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
+
             pan.add(art);
+
             request.setAttribute("montantTotalR", ComputeTotal(pan));
             request.setAttribute("lArticlesPanierR", session.getAttribute("panier"));
 
@@ -162,8 +167,8 @@ public class slCommande extends HttpServlet {
     }// </editor-fold>
 
     private String listeDomaines(HttpServletRequest request) throws Exception {
-        
-        request.setAttribute("lDomainesR",domaineF.lister());
+
+        request.setAttribute("lDomainesR", domaineF.lister());
         return "rechercher.jsp";
     }
 
@@ -171,13 +176,15 @@ public class slCommande extends HttpServlet {
         //lAchetesR
         HttpSession session = request.getSession(true);
         Integer idUser = (Integer) session.getAttribute("userId");
-        request.setAttribute("lAchetesR",acheteF.getAcheteByCustomer(idUser));
+        request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(idUser));
         return "listeAchats.jsp";
     }
 
     private String voirPanier(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-
+        if (session.getAttribute("userId") == null) {
+            return ("/login.jsp");
+        }
         ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
         request.setAttribute("montantTotalR", ComputeTotal(pan));
         request.setAttribute("lArticlesPanierR", session.getAttribute("panier"));
@@ -185,8 +192,6 @@ public class slCommande extends HttpServlet {
         return ("panier.jsp");
     }
 
-    
-    
     private String listeArticlesDomaine(HttpServletRequest request) {
         String vueReponse = "/listeArticles.jsp";
         erreur = "";
@@ -204,8 +209,7 @@ public class slCommande extends HttpServlet {
         }
 
     }
-  
-    
+
     private String supprimerPanier(HttpServletRequest request) throws Exception {
         try {
 
@@ -214,8 +218,11 @@ public class slCommande extends HttpServlet {
             HttpSession session = request.getSession(true);
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-            
-            pan.remove(art);
+
+            for(int i = 0;i<pan.size();i++){
+                if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
+            }
+            //pan.remove(art);
             //session.setAttribute("panier", pan);
             request.setAttribute("montantTotalR", ComputeTotal(pan));
             request.setAttribute("lArticlesPanierR", pan);
@@ -231,13 +238,11 @@ public class slCommande extends HttpServlet {
             HttpSession session = request.getSession(true);
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
             Integer totalPanier = (int) ComputeTotal(pan);
-            
-            return("");
+
+            return ("");
         } catch (Exception e) {
             throw e;
         }
     }
-
-    
 
 }

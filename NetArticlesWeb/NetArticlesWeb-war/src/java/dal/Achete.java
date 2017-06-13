@@ -6,6 +6,7 @@
 package dal;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -60,5 +61,45 @@ public class Achete{
 
     public void setClient(Client client) {
         this.client = client;
-    }   
+    } 
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.achetePK);
+        hash = 29 * hash + Objects.hashCode(this.dateAchat);
+        hash = 29 * hash + Objects.hashCode(this.article);
+        hash = 29 * hash + Objects.hashCode(this.client);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Achete other = (Achete) obj;
+        if (!Objects.equals(this.achetePK, other.achetePK)) {
+            return false;
+        }
+        if (!Objects.equals(this.dateAchat, other.dateAchat)) {
+            return false;
+        }
+        if (!Objects.equals(this.article, other.article)) {
+            return false;
+        }
+        if (!Objects.equals(this.client, other.client)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 }

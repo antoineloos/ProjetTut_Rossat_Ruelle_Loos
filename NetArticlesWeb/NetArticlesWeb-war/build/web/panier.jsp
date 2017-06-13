@@ -29,7 +29,7 @@
             </tbody>
         </table>
         <div>
-            <a class="btn btn-primary" href="validerPanier.cde"><span class="glyphicon glyphicon-log-in"></span> Valider panier</a>    
+            <c:if test="${sessionScope.userId != null}"><a class="btn btn-primary" href="validerPanier.cde"><span class="glyphicon glyphicon-log-in"></span> Valider panier</a></c:if>    
         </div>      
     </c:if>
 </div>

@@ -69,7 +69,9 @@ public class slNetArticle extends HttpServlet {
             String id = request.getParameter("id_article");
             Article art = articleF.lire(Integer.parseInt(id));
             request.setAttribute("articleR", art);
+            request.setAttribute("id_domaineR", art.getIdDomaine());
 
+           // return ("detailArticle.jsp");
             return ("voirArticle.jsp");
         } catch (Exception e) {
             throw e;
@@ -82,8 +84,7 @@ public class slNetArticle extends HttpServlet {
         demande = demande.substring(demande.lastIndexOf("/") + 1);
         return demande;
     }
-    
-    
+
     private String dernierArticle(HttpServletRequest request) throws Exception {
         try {
 
@@ -91,11 +92,12 @@ public class slNetArticle extends HttpServlet {
             request.setAttribute("articleR", art);
 
             return ("detailArticle.jsp");
+            //return ("voirArticle.jsp");
         } catch (Exception e) {
             throw e;
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -134,7 +136,5 @@ public class slNetArticle extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-
 
 }

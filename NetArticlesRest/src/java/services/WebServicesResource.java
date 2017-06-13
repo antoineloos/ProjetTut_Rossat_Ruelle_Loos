@@ -74,7 +74,7 @@ public class WebServicesResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public String getJson() {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
@@ -85,13 +85,13 @@ public class WebServicesResource {
      * @param content representation for the resource
      */
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public void putJson(String content) {
     }
     
     @GET
     @Path("getConnexion/{login}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getConnexion(@PathParam("login") String login) throws Exception {
         Response response = null;
         try {
@@ -106,7 +106,7 @@ public class WebServicesResource {
 
     @GET
     @Path("getUtilisateurs")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getUtilisateurs() throws Exception {
         Response response = null;
         try {
@@ -123,7 +123,7 @@ public class WebServicesResource {
 
     @GET
     @Path("getArticles")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getArticles() throws Exception {
         Response response = null;
         try {
@@ -140,7 +140,7 @@ public class WebServicesResource {
     
     @GET
     @Path("getCategories")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getCategories() throws Exception {
         Response response = null;
         try {
@@ -158,7 +158,7 @@ public class WebServicesResource {
     
      @GET
     @Path("getDomaines")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getDomaines() throws Exception {
         Response response = null;
         try {
@@ -176,7 +176,7 @@ public class WebServicesResource {
     
     @GET
     @Path("getAchetes/{idCustomer}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getAchetes(@PathParam("idCustomer") Integer id) throws Exception {
         Response response = null;
         try {
@@ -194,14 +194,14 @@ public class WebServicesResource {
     
   @GET
     @Path("getDomaine/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Domaine getDomaine(@PathParam("id") Integer id) throws Exception {
         return domaineF.find(id);
     }
     
     @POST
     @Path("getArticlesByDomaine")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getArticlesByDomaine(Domaine domaine) throws Exception {
         Response response = null;
         try {
@@ -222,14 +222,14 @@ public class WebServicesResource {
     
     @GET
     @Path("getArticles/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Article getArticles(@PathParam("id") Integer id) throws Exception {
         return articleF.find(id);
     }
     
     @GET
     @Path("getUtilisateur/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Client getUtilisateur(@PathParam("id") Integer id) throws Exception {
         return clientF.lire(id);
     }
@@ -238,7 +238,7 @@ public class WebServicesResource {
 
     @GET
     @Path("getCategorie/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Categorie getCategorie(@PathParam("id") Integer id) throws Exception {
         return categorieF.find(id);
 
@@ -246,7 +246,7 @@ public class WebServicesResource {
 
     @POST
     @Path("modifierArticle")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response modifierArticle(Article article) throws Exception {
         Response response = null;
         try {
@@ -264,7 +264,7 @@ public class WebServicesResource {
     
     @POST
     @Path("modifierClient")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response modifierClient(Client client) throws Exception {
         Response response = null;
         try {
@@ -282,7 +282,7 @@ public class WebServicesResource {
     
     @POST
     @Path("modifierCategorie")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response modifierClient(Categorie categorie) throws Exception {
         Response response = null;
         try {
@@ -300,7 +300,7 @@ public class WebServicesResource {
 
     @POST
     @Path("ajouterClient")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response ajouterClient(Client client) throws Exception {
         Response response = null;
         try {
@@ -318,7 +318,7 @@ public class WebServicesResource {
     
     @POST
     @Path("ajouterArticles")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response ajouterArticles(Article article) throws Exception {
         Response response = null;
         try {
@@ -336,7 +336,7 @@ public class WebServicesResource {
     
     @POST
     @Path("ajouterCategorie")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response ajouterCategorie(Categorie categorie) throws Exception {
         Response response = null;
         try {
