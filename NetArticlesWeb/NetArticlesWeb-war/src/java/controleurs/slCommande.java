@@ -5,12 +5,16 @@
  */
 package controleurs;
 
+import dal.Achete;
 import dal.Article;
 import dal.Domaine;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import static java.util.Arrays.stream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -22,7 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.AcheteFacade;
 import session.ArticleFacade;
+import session.CompteFacade;
 import session.DomaineFacade;
+import utils.Transaction;
 
 /**
  *
@@ -36,6 +42,11 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
+<<<<<<< HEAD
+=======
+    @EJB
+    private CompteFacade compteF;
+>>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
 
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
@@ -92,11 +103,13 @@ public class slCommande extends HttpServlet {
         return demande;
     }
 
+    // A VOIR SI ON A LE DROIT 
     private String ajouterPanier(HttpServletRequest request) throws Exception {
         try {
 
             String id = request.getParameter("id_article");
             Article art = articleF.lire(Integer.parseInt(id));
+
             request.setAttribute("articleR", art);
             HttpSession session = request.getSession(true);
 
@@ -219,10 +232,14 @@ public class slCommande extends HttpServlet {
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
 
+<<<<<<< HEAD
             for(int i = 0;i<pan.size();i++){
                 if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
             }
             //pan.remove(art);
+=======
+            pan.remove(art);
+>>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
             //session.setAttribute("panier", pan);
             request.setAttribute("montantTotalR", ComputeTotal(pan));
             request.setAttribute("lArticlesPanierR", pan);
@@ -236,10 +253,40 @@ public class slCommande extends HttpServlet {
     private String validerPanier(HttpServletRequest request) throws Exception {
         try {
             HttpSession session = request.getSession(true);
+            Integer id = (Integer) session.getAttribute("userId");
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
+<<<<<<< HEAD
             Integer totalPanier = (int) ComputeTotal(pan);
 
             return ("");
+=======
+            List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
+
+            ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
+
+            for (Article a : tmp) {
+                if (listeAchats.stream().anyMatch(art -> art.getArticle().getIdArticle() == a.getIdArticle())) {
+                    pan.remove(a);
+                }
+            }
+
+            Integer tot = (int) ComputeTotal(pan);
+            Transaction transaction = new Transaction(id, tot);
+
+            if (!pan.isEmpty()) {
+                if (compteF.debiterCompte(transaction)) {
+                    Date today = Calendar.getInstance().getTime();
+                    for (Article a : pan) {
+                        Achete achat = new Achete(id, a.getIdArticle(), today);
+                        acheteF.ajouterAchat(achat);
+                    }
+                }
+            }
+            Integer res =  acheteF.getAcheteByCustomer(id).size();
+            System.out.println(String.valueOf(res));
+            request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(id));
+            return ("listeAchats.jsp");
+>>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
         } catch (Exception e) {
             throw e;
         }

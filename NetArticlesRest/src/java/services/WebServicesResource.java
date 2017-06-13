@@ -41,7 +41,7 @@ import outils.Utilitaire;
 @Path("webServices")
 public class WebServicesResource {
 
-   @Context
+    @Context
     private UriInfo context;
 
     @EJB
@@ -50,19 +50,19 @@ public class WebServicesResource {
     ArticleFacade articleF;
     @EJB
     AuteurFacade auteurf;
-    @EJB 
+    @EJB
     CategorieFacade categorieF;
-    @EJB 
+    @EJB
     ClesFacade clesF;
-    @EJB 
+    @EJB
     ClientFacade clientF;
     @EJB
     DomaineFacade domaineF;
     @EJB
     DroitsFacade droitsF;
-    @EJB 
+    @EJB
     RedigeFacade redigeF;
-    
+
     /**
      * Creates a new instance of WebServiceResource
      */
@@ -71,6 +71,7 @@ public class WebServicesResource {
 
     /**
      * Retrieves representation of an instance of webservice.WebServiceResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -82,13 +83,14 @@ public class WebServicesResource {
 
     /**
      * PUT method for updating or creating an instance of WebServiceResource
+     *
      * @param content representation for the resource
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public void putJson(String content) {
     }
-    
+
     @GET
     @Path("getConnexion/{login}")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -111,7 +113,8 @@ public class WebServicesResource {
         Response response = null;
         try {
             List<Client> lstClient = clientF.findAll();
-            GenericEntity<List<Client>> lClient = new GenericEntity<List<Client>>(lstClient){};
+            GenericEntity<List<Client>> lClient = new GenericEntity<List<Client>>(lstClient) {
+            };
             response = Response.status(Response.Status.OK).entity(lClient).build();
         } catch (Exception ex) {
             String msg = Utilitaire.getExceptionCause(ex);
@@ -128,7 +131,8 @@ public class WebServicesResource {
         Response response = null;
         try {
             List<Article> lstArticles = articleF.findAll();
-            GenericEntity<List<Article>> lArticles = new GenericEntity<List<Article>>(lstArticles){};
+            GenericEntity<List<Article>> lArticles = new GenericEntity<List<Article>>(lstArticles) {
+            };
             response = Response.status(Response.Status.OK).entity(lArticles).build();
         } catch (Exception ex) {
             String msg = Utilitaire.getExceptionCause(ex);
@@ -137,7 +141,7 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @GET
     @Path("getCategories")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -155,8 +159,8 @@ public class WebServicesResource {
         }
         return response;
     }
-    
-     @GET
+
+    @GET
     @Path("getDomaines")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Response getDomaines() throws Exception {
@@ -173,7 +177,7 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @GET
     @Path("getAchetes/{idCustomer}")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -181,7 +185,7 @@ public class WebServicesResource {
         Response response = null;
         try {
             List<Achete> lstAchetes = acheteF.getAcheteByCustomer(id);
-            GenericEntity<List<Achete>> lAchetes= new GenericEntity<List<Achete>>(lstAchetes) {
+            GenericEntity<List<Achete>> lAchetes = new GenericEntity<List<Achete>>(lstAchetes) {
             };
             response = Response.status(Response.Status.OK).entity(lAchetes).build();
         } catch (Exception ex) {
@@ -191,14 +195,14 @@ public class WebServicesResource {
         }
         return response;
     }
-    
-  @GET
+
+    @GET
     @Path("getDomaine/{id}")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Domaine getDomaine(@PathParam("id") Integer id) throws Exception {
         return domaineF.find(id);
     }
-    
+
     @POST
     @Path("getArticlesByDomaine")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -219,22 +223,20 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @GET
     @Path("getArticles/{id}")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Article getArticles(@PathParam("id") Integer id) throws Exception {
         return articleF.find(id);
     }
-    
+
     @GET
     @Path("getUtilisateur/{id}")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
     public Client getUtilisateur(@PathParam("id") Integer id) throws Exception {
         return clientF.lire(id);
     }
-
-    
 
     @GET
     @Path("getCategorie/{id}")
@@ -251,7 +253,7 @@ public class WebServicesResource {
         Response response = null;
         try {
             if (article != null) {
-                
+
                 articleF.edit(article);
                 response = Response.status(Response.Status.OK).build();
             }
@@ -261,7 +263,7 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @POST
     @Path("modifierClient")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -269,7 +271,7 @@ public class WebServicesResource {
         Response response = null;
         try {
             if (client != null) {
-                
+
                 clientF.edit(client);
                 response = Response.status(Response.Status.OK).build();
             }
@@ -279,7 +281,7 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @POST
     @Path("modifierCategorie")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -287,7 +289,7 @@ public class WebServicesResource {
         Response response = null;
         try {
             if (categorie != null) {
-                
+
                 categorieF.edit(categorie);
                 response = Response.status(Response.Status.OK).build();
             }
@@ -305,7 +307,7 @@ public class WebServicesResource {
         Response response = null;
         try {
             if (client != null) {
-                
+
                 clientF.create(client);
                 response = Response.status(Response.Status.OK).build();
             }
@@ -315,7 +317,7 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @POST
     @Path("ajouterArticles")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -323,7 +325,7 @@ public class WebServicesResource {
         Response response = null;
         try {
             if (article != null) {
-                
+
                 articleF.create(article);
                 response = Response.status(Response.Status.OK).build();
             }
@@ -333,7 +335,7 @@ public class WebServicesResource {
         }
         return response;
     }
-    
+
     @POST
     @Path("ajouterCategorie")
     @Produces(MediaType.APPLICATION_JSON+ "; charset=UTF-8")
@@ -341,8 +343,25 @@ public class WebServicesResource {
         Response response = null;
         try {
             if (categorie != null) {
-                
+
                 categorieF.create(categorie);
+                response = Response.status(Response.Status.OK).build();
+            }
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utilitaire.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+
+    @POST
+    @Path("ajouterAchat")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response ajouterAchat(Achete achete) throws Exception {
+        Response response = null;
+        try {
+            if (achete != null) {
+                acheteF.create(achete);
                 response = Response.status(Response.Status.OK).build();
             }
         } catch (Exception ex) {
