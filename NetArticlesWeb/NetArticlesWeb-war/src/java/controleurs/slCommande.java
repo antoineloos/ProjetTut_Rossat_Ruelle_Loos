@@ -42,15 +42,12 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
-<<<<<<< HEAD
+
 
     @EJB
     private CompteFacade compteF;
 
-=======
-    @EJB
-    private CompteFacade compteF;
->>>>>>> b420f1a6e7c34aa7aa8c84519d361ee2e9e7b4e6
+
 
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
@@ -236,19 +233,12 @@ public class slCommande extends HttpServlet {
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
 
-<<<<<<< HEAD
+
 
             for(int i = 0;i<pan.size();i++){
                 if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
             }
-            //pan.remove(art);
 
-            pan.remove(art);
-=======
-            for(int i = 0;i<pan.size();i++){
-                if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
-            }
->>>>>>> b420f1a6e7c34aa7aa8c84519d361ee2e9e7b4e6
 
             //session.setAttribute("panier", pan);
             request.setAttribute("montantTotalR", ComputeTotal(pan));
@@ -265,15 +255,10 @@ public class slCommande extends HttpServlet {
             HttpSession session = request.getSession(true);
             Integer id = (Integer) session.getAttribute("userId");
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-<<<<<<< HEAD
 
-            Integer totalPanier = (int) ComputeTotal(pan);
-
-            
-=======
 
     
->>>>>>> b420f1a6e7c34aa7aa8c84519d361ee2e9e7b4e6
+
 
             List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
 
