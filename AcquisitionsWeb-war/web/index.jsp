@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="lib/css/component2.css" />
         <link rel="stylesheet" type="text/css" href="lib/css/book.css" />
         <link href="lib/css/appStyles.css" rel="stylesheet" type="text/css"/>
-        <link href="lib/bootstrap/css/flatly.css" rel="stylesheet" type="text/css"/>     
+        <link href="lib/bootstrap/css/united.css" rel="stylesheet" type="text/css"/>     
         <script src="lib/jquery/jquery-2.1.3.min.js" type="text/javascript"></script>        
         <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <script src="net_articles.js" type="text/javascript"></script>
@@ -14,7 +14,7 @@
 
         <title>Net Articles</title>
     </head>
-    <body class="body">       
+    <body class="body" >       
         <div class="container">
             <c:import url="/menu.jsp"/>
             <div>
