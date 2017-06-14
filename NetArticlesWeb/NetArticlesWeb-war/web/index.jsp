@@ -5,8 +5,8 @@
         <link rel="stylesheet" type="text/css" href="lib/css/default2.css" />
         <link rel="stylesheet" type="text/css" href="lib/css/component2.css" />
         <link rel="stylesheet" type="text/css" href="lib/css/book.css" />
+        <link href="lib/bootstrap/css/flatly.css" rel="stylesheet" type="text/css"/>   
         <link href="lib/css/appStyles.css" rel="stylesheet" type="text/css"/>
-        <link href="lib/bootstrap/css/flatly.css" rel="stylesheet" type="text/css"/>     
         <script src="lib/jquery/jquery-2.1.3.min.js" type="text/javascript"></script>        
         <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript"></script>
         <script src="net_articles.js" type="text/javascript"></script>
@@ -14,10 +14,20 @@
 
         <title>Net Articles</title>
     </head>
-    <body class="body">       
+    <body class="body" >  
+        <c:if test="${pageR == null}">
+        <div class="contener_titre_mega" align="center" >
+            
+            <div class="comment_titre_mega">projet tutoré de 4A</div>
+            <div class="name_titre_mega">la librairie  </div>
+            <div class="name_titre_mega">Book & mistère  </div>
+            <div class="avec_titre_mega">Ruelle Rossat Loos</div>
+        </div>
+        </c:if>
         <div class="container">
+            
             <c:import url="/menu.jsp"/>
-            <div>
+            <div >
                 <c:if test="${pageR != null}">
                     <c:import url="${pageR}"/>
                 </c:if>

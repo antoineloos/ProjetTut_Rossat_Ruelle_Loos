@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div class="col-md-9 col-md-offset-2">
-    <h1 align='center'><c:out value="${titre}"/></h1>
+<div class="well col-md-9 col-md-offset-2">
+    <h1 align='center'>Panier<c:out value="${titre}"/></h1>
     <c:if test="${sessionScope.panier != null}">
         <table class="table table-bordered table-striped">
             <thead>
