@@ -30,6 +30,7 @@ import session.ArticleFacade;
 import session.ClientFacade;
 import session.CompteFacade;
 import session.DomaineFacade;
+import utils.Emetteur;
 import utils.Transaction;
 
 /**
@@ -52,6 +53,9 @@ public class slCommande extends HttpServlet {
 
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
+    
+    
+    private Emetteur emetteur;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -293,6 +297,7 @@ public class slCommande extends HttpServlet {
                         achat.setArticle(a);
                         achat.setClient(client);
                         acheteF.ajouter(achat);
+                        emetteur.sendMessage(achat);
                         pan.remove(i);
                         i++;
                     }
