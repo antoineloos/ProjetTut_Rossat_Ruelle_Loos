@@ -44,7 +44,6 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
-
     @EJB
     private CompteFacade compteF;
     @EJB
