@@ -55,7 +55,7 @@ public class ClientNetArticlesRest {
     public <T> T getArticle(Class<T> responseType, int id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getArticles/{0}", new Object[]{id}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get(responseType);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(responseType);
     }
 
     public <T> T getConnexion(Class<T> responseType, String login) throws ClientErrorException {
@@ -74,7 +74,7 @@ public class ClientNetArticlesRest {
         WebTarget resource = webTarget;
         resource = resource.path("getUtilisateurs");
         Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
-        
+
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -100,7 +100,7 @@ public class ClientNetArticlesRest {
     public List<Achete> getAchete(int id) throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("getAchetes/{0}", new Object[]{id}));
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -111,7 +111,7 @@ public class ClientNetArticlesRest {
     }
 
     public List<Article> getArticlesByDomaine(Object requestEntity) throws ClientErrorException, Exception {
-        Response response = webTarget.path("getArticlesByDomaine").request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8"), Response.class);
+        Response response = webTarget.path("getArticlesByDomaine").request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8"), Response.class);
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -130,7 +130,7 @@ public class ClientNetArticlesRest {
     public List<Categorie> getCategories() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getCategories");
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -143,7 +143,7 @@ public class ClientNetArticlesRest {
     public List<Domaine> getDomaines() throws ClientErrorException, Exception {
         WebTarget resource = webTarget;
         resource = resource.path("getDomaines");
-        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get();
+        Response response = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get();
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {
             JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
             String message = jsonObject.getString("message");
@@ -175,7 +175,7 @@ public class ClientNetArticlesRest {
 
     public String getJson() throws ClientErrorException {
         WebTarget resource = webTarget;
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON+ "; charset=UTF-8").get(String.class);
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON + "; charset=UTF-8").get(String.class);
     }
 
     public Response modifierUser(Object requestEntity) throws ClientErrorException, Exception {
@@ -192,16 +192,32 @@ public class ClientNetArticlesRest {
         client.close();
     }
 
-    public Response ajouterAchat(Achete achete) throws Exception {
-        Response response = webTarget.path("ajouterAchat").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(achete, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
-        try {
-            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
-                JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
-                String message = jsonObject.getString("message");
-                throw new Exception(message);
-            }
-        } catch (Exception e) {
-            throw e;
+    public Response ajouterAchat(Object requestEntity) throws Exception {
+        Response response = webTarget.path("ajouterAchat").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
+        }
+        return response;
+//        try {
+//            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+//                JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+//                String message = jsonObject.getString("message");
+//                throw new Exception(message);
+//            }
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//        return response;
+    }
+
+    public Response ajouterAchete(Object requestEntity) throws ClientErrorException, Exception {
+        Response response = webTarget.path("ajouterAchete").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            JsonObject jsonObject = Utilitaire.convertJson(response.readEntity(String.class));
+            String message = jsonObject.getString("message");
+            throw new Exception(message);
         }
         return response;
     }

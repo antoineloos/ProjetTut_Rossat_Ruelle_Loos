@@ -7,6 +7,7 @@ package controleurs;
 
 import dal.Achete;
 import dal.Article;
+import dal.Client;
 import dal.Domaine;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.AcheteFacade;
 import session.ArticleFacade;
+import session.ClientFacade;
 import session.CompteFacade;
 import session.DomaineFacade;
 import utils.Transaction;
@@ -44,6 +46,8 @@ public class slCommande extends HttpServlet {
     private DomaineFacade domaineF;
     @EJB
     private CompteFacade compteF;
+    @EJB
+    private ClientFacade clientF;
 
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
@@ -229,8 +233,10 @@ public class slCommande extends HttpServlet {
 
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
 
-            for(int i = 0;i<pan.size();i++){
-                if(Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) pan.remove(i);
+            for (int i = 0; i < pan.size(); i++) {
+                if (Objects.equals(pan.get(i).getIdArticle(), art.getIdArticle())) {
+                    pan.remove(i);
+                }
             }
 
             //session.setAttribute("panier", pan);
@@ -249,37 +255,48 @@ public class slCommande extends HttpServlet {
             Integer id = (Integer) session.getAttribute("userId");
             ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
 
-    
-
             List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
 
             ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
-            
+
             int i = 0;
             for (Article a : tmp) {
 //                if (listeAchats.stream().anyMatch(art -> art.getArticle().getIdArticle() == a.getIdArticle())) {
 //                    pan.remove(a);
 //                }
-                for(Achete achete : listeAchats){
-                    if(achete.getArticle().getIdArticle() == a.getIdArticle()) pan.remove(i);
+                for (Achete achete : listeAchats) {
+                    if (achete.getArticle().getIdArticle() == a.getIdArticle()) {
+                        pan.remove(i);
+                        break;
+                    }
                 }
                 i++;
             }
 
+            tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
+            
             Integer tot = (int) ComputeTotal(pan);
             Transaction transaction = new Transaction(id, tot);
 
             if (!pan.isEmpty()) {
                 if (compteF.debiterCompte(transaction)) {
-                    Date today = Calendar.getInstance().getTime();
-                    for (Article a : pan) {
-                        Achete achat = new Achete(id, a.getIdArticle(), today);
-                        acheteF.ajouterAchat(achat);
+                    //Date today = Calendar.getInstance().getTime();
+                    i = 0;
+                    Client client = clientF.lire(id);
+                    Date dateJour = new Date(System.currentTimeMillis());
+                    for (Article a : tmp) {
+                        Achete achat = new Achete(id, a.getIdArticle());
+                        achat.setDateAchat(dateJour);
+                        achat.setArticle(a);
+                        achat.setClient(client);
+                        acheteF.ajouter(achat);
+                        pan.remove(i);
+                        i++;
                     }
                 }
             }
 
-            Integer res =  acheteF.getAcheteByCustomer(id).size();
+            Integer res = acheteF.getAcheteByCustomer(id).size();
             System.out.println(String.valueOf(res));
             request.setAttribute("lAchetesR", acheteF.getAcheteByCustomer(id));
 

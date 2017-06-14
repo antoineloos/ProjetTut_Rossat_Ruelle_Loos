@@ -40,9 +40,20 @@ public class AcheteFacade {
         try {
             ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
             Response response = clientNetArticlesRest.ajouterAchat(achete);
-            return response; 
+            return response;
         } catch (Exception e) {
             throw e;
         }
     }
+
+    public Response ajouter(Achete achete) throws Exception {
+        try {
+            ClientNetArticlesRest clientNetArticlesRest = new ClientNetArticlesRest();
+            Response response = clientNetArticlesRest.ajouterAchete(achete);
+            return response;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }
