@@ -19,7 +19,10 @@ html {
 }
 body {
   margin: 0;
+ 
 }
+
+
 article,
 aside,
 details,
@@ -1590,6 +1593,7 @@ pre code {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  background-color: transparent;
 }
 @media (min-width: 768px) {
   .container {
@@ -2253,7 +2257,7 @@ pre code {
   }
 }
 table {
-  background-color: transparent;
+  background-color: white;
 }
 caption {
   padding-top: 8px;

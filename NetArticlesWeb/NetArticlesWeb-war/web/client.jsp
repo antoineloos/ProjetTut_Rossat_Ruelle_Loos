@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="well">
     <form class="form form-horizontal" role="form" action="validerCompte.cpt?id_client=${clientR.idClient}" method="post" name="frmModif">
-        <h1 align='center'><c:out value="${titre}"/></h1>
+        <h1 align='center'>Profil</h1>
         <div class="form-group">
             <label class="col-md-3 control-label">Identité : </label>
             <div class="col-md-3">
@@ -51,3 +52,4 @@
             </div>
         </div> 
     </form>
+</div>

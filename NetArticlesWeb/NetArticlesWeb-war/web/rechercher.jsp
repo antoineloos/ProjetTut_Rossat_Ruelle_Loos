@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="well">
+    
 <form class="form form-horizontal" name="frmSearch" role="form" role="form" action="listeArticlesDomaine.cde" method="post">
     <h1 align='center'><c:out value="${titre}"/></h1>                               
     <div class="form-group">
@@ -35,5 +37,6 @@
             </tr>
         </c:forEach>
     </tbody>
-</table>       
+</table>     
+</div>
 </c:if>
