@@ -446,4 +446,22 @@ public class WebServicesResource {
         }
         return response;
     }
+
+    @POST
+    @Path("ajouterAchete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response ajouterAchete(Achete achete) throws Exception {
+        Response response = null;
+        try {
+            if (achete != null) {
+                acheteF.ajouterAchat(achete);
+                response = Response.status(Response.Status.OK).build();
+            }
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utilitaire.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+
 }

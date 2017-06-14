@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author Epulapp
  */
-public class Achete{
+public class Achete {
 
     private static final long serialVersionUID = 1L;
     protected AchetePK achetePK;
@@ -30,6 +30,10 @@ public class Achete{
     public Achete(int idClient, int idArticle, Date dateAchat) {
         this.achetePK = new AchetePK(idClient, idArticle);
         this.dateAchat = dateAchat;
+    }
+
+    public Achete(int idClient, int idArticle) {
+        this.achetePK = new AchetePK(idClient, idArticle);
     }
 
     public AchetePK getAchetePK() {
@@ -62,7 +66,7 @@ public class Achete{
 
     public void setClient(Client client) {
         this.client = client;
-    } 
+    }
 
     @Override
     public int hashCode() {
@@ -100,7 +104,5 @@ public class Achete{
         }
         return true;
     }
-    
-    
-    
+
 }
