@@ -2,27 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/voirArticle.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/detailArticle.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCommande.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCompte.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/panier.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/dal/Domaine.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slNetArticle.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/listeArticles.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/index.jsp</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/dal/Article.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/dal/Achete.java</file>
-=======
-            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/listeAchats.jsp</file>
-            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/AcheteFacade.java</file>
-            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCommande.java</file>
-            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/listeArticles.jsp</file>
-            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/dal/Achete.java</file>
-            <file>file:/D:/TP_Synthese_IR/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/client/ClientNetArticlesRest.java</file>
->>>>>>> 74e3406e3321ca3aeb50cbff001f97071d5ada18
-        </group>
+        <group/>
     </open-files>
 </project-private>

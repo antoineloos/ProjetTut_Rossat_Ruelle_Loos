@@ -107,6 +107,21 @@ public class WebServicesResource {
     }
 
     @GET
+    @Path("getConnexionAuteur/{login}")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response getConnexionAuteur(@PathParam("login") String login) throws Exception {
+        Response response = null;
+        try {
+            Auteur user = auteurf.lireLogin(login);
+            response = Response.status(Response.Status.OK).entity(user).build();
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utilitaire.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+
+    @GET
     @Path("getUtilisateurs")
     @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
     public Response getUtilisateurs() throws Exception {
@@ -124,6 +139,24 @@ public class WebServicesResource {
         return response;
     }
 
+    @GET
+    @Path("getAuteurs")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response getAuteurs() throws Exception {
+        Response response = null;
+        try {
+            List<Auteur> lstClient = auteurf.findAll();
+            GenericEntity<List<Auteur>> lClient = new GenericEntity<List<Auteur>>(lstClient) {
+            };
+            response = Response.status(Response.Status.OK).entity(lClient).build();
+        } catch (Exception ex) {
+            String msg = Utilitaire.getExceptionCause(ex);
+            JsonObject retour = Json.createObjectBuilder().add("message", msg).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+    
     @GET
     @Path("getArticles")
     @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
@@ -239,6 +272,13 @@ public class WebServicesResource {
     }
 
     @GET
+    @Path("getAuteur/{id}")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Auteur getAuteur(@PathParam("id") Integer id) throws Exception {
+        return auteurf.lire(id);
+    }
+    
+    @GET
     @Path("getCategorie/{id}")
     @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
     public Categorie getCategorie(@PathParam("id") Integer id) throws Exception {
@@ -281,6 +321,24 @@ public class WebServicesResource {
         }
         return response;
     }
+    
+    @POST
+    @Path("modifierAuteur")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response modifierClient(Auteur auteur) throws Exception {
+        Response response = null;
+        try {
+            if (auteur != null) {
+
+                auteurf.edit(auteur);
+                response = Response.status(Response.Status.OK).build();
+            }
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utilitaire.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
 
     @POST
     @Path("modifierCategorie")
@@ -309,6 +367,24 @@ public class WebServicesResource {
             if (client != null) {
 
                 clientF.create(client);
+                response = Response.status(Response.Status.OK).build();
+            }
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utilitaire.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+    
+    @POST
+    @Path("ajouterAuteur")
+    @Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
+    public Response ajouterAuteur(Auteur auteur) throws Exception {
+        Response response = null;
+        try {
+            if (auteur != null) {
+
+                auteurf.create(auteur);
                 response = Response.status(Response.Status.OK).build();
             }
         } catch (Exception ex) {
