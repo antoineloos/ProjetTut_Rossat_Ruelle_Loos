@@ -44,6 +44,7 @@ public class slCommande extends HttpServlet {
     private AcheteFacade acheteF;
     @EJB
     private DomaineFacade domaineF;
+
     @EJB
     private CompteFacade compteF;
     @EJB
@@ -239,15 +240,17 @@ public class slCommande extends HttpServlet {
                 }
             }
 
-            //session.setAttribute("panier", pan);
-            request.setAttribute("montantTotalR", ComputeTotal(pan));
-            request.setAttribute("lArticlesPanierR", pan);
+                //session.setAttribute("panier", pan);
+                request.setAttribute("montantTotalR", ComputeTotal(pan));
+                request.setAttribute("lArticlesPanierR", pan);
 
-            return ("panier.jsp");
-        } catch (Exception e) {
+                return ("panier.jsp");
+            }catch (Exception e) {
             throw e;
         }
-    }
+        }
+
+    
 
     private String validerPanier(HttpServletRequest request) throws Exception {
         try {
@@ -274,7 +277,7 @@ public class slCommande extends HttpServlet {
             }
 
             tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
-            
+
             Integer tot = (int) ComputeTotal(pan);
             Transaction transaction = new Transaction(id, tot);
 

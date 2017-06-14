@@ -7,3 +7,8 @@
 /AcquisitionsWeb/AcquisitionsWeb-ejb/build/
 /AcquisitionsWeb/AcquisitionsWeb-war/build/
 >>>>>>> a4ce8c78cee0dbf2c83895cdf757f5bb0d1cbe28
+/AcquisitionsWeb/AcquisitionsWeb-ejb/nbproject/
+/AcquisitionsWeb/nbproject/
+/AcquisitionWeb/nbproject/private/
+/AcquisitionsWeb/AcquisitionsWeb-war/nbproject/private/
+/AcquisitionsWeb/AcquisitionsWeb-war/dist/
