@@ -14,7 +14,7 @@
 
         <title>Net Articles</title>
     </head>
-    <body class="body">       
+    <body class="body" >       
         <div class="container">
             <c:import url="/menu.jsp"/>
             <div>
