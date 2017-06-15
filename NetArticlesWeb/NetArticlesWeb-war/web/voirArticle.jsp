@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="detailArticle.jsp"/>
-<div class="well col-md-12 " >
+<div class="well col-md-6 col-lg-offset-3 " >
     
         
     

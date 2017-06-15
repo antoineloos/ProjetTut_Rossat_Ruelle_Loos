@@ -1,13 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 2 sept. 2015, 09:38:30
-    Author     : alain
-*/
-
 .body{
     padding-top: 80px;
     background-image:  url("librairie.jpg");
@@ -30,6 +20,9 @@ and open the template in the editor.
   text-align: center; text-transform: uppercase; letter-spacing:5px;
   text-shadow:2px 2px 12px #333333;
 }
+
+
+
 .name_titre_mega
 {
   color: #ffffff;

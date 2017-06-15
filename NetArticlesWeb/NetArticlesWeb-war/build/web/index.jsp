@@ -20,7 +20,9 @@
             
             <div class="comment_titre_mega">projet tutoré de 4A</div>
             <div class="name_titre_mega">la librairie  </div>
-            <div class="name_titre_mega">Book & mistère  </div>
+
+            <div class="name_titre_mega" font>Book & mistère  </div>
+
             <div class="avec_titre_mega">Ruelle Rossat Loos</div>
         </div>
         </c:if>
