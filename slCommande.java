@@ -314,8 +314,8 @@ public class slCommande extends HttpServlet {
                         pan.remove(a);
                         
                     }
-                } 
-           }
+                }
+            }
 
             Integer res = acheteF.getAcheteByCustomer(id).size();
             System.out.println(String.valueOf(res));
@@ -327,4 +327,5 @@ public class slCommande extends HttpServlet {
             throw e;
         }
     }
+
 }

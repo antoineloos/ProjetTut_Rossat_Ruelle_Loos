@@ -18,8 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +36,7 @@ import utils.Transaction;
  *
  * @author Epulapp
  */
-public class slCommande extends HttpServlet {
+public class slCommandeOld extends HttpServlet {
 
     @EJB
     private ArticleFacade articleF;
@@ -80,8 +78,6 @@ public class slCommande extends HttpServlet {
                 vueReponse = listeAchats(request);
             } else if (demande.equalsIgnoreCase("listeDomaines.cde")) {
                 vueReponse = listeDomaines(request);
-            } else if (demande.equalsIgnoreCase("verifierPanier.cde")) {
-                vueReponse = verifierPanier(request);
             } else if (demande.equalsIgnoreCase("validerPanier.cde")) {
                 vueReponse = validerPanier(request);
             } else if (demande.equalsIgnoreCase("listeArticlesDomaine.cde")) {
@@ -243,17 +239,19 @@ public class slCommande extends HttpServlet {
                 }
             }
 
-            //session.setAttribute("panier", pan);
-            request.setAttribute("montantTotalR", ComputeTotal(pan));
-            request.setAttribute("lArticlesPanierR", pan);
+                //session.setAttribute("panier", pan);
+                request.setAttribute("montantTotalR", ComputeTotal(pan));
+                request.setAttribute("lArticlesPanierR", pan);
 
-            return ("panier.jsp");
-        } catch (Exception e) {
+                return ("panier.jsp");
+            }catch (Exception e) {
             throw e;
         }
-    }
+        }
 
-    private String verifierPanier(HttpServletRequest request) throws Exception {
+    
+
+    private String validerPanier(HttpServletRequest request) throws Exception {
         try {
             HttpSession session = request.getSession(true);
             Integer id = (Integer) session.getAttribute("userId");
@@ -262,39 +260,22 @@ public class slCommande extends HttpServlet {
             List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
 
             ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
-            
-            int cptArticlesEnleves = 0;
-            
+
+            int i = 0;
             for (Article a : tmp) {
+//                if (listeAchats.stream().anyMatch(art -> art.getArticle().getIdArticle() == a.getIdArticle())) {
+//                    pan.remove(a);
+//                }
                 for (Achete achete : listeAchats) {
                     if (achete.getArticle().getIdArticle() == a.getIdArticle()) {
-                        pan.remove(achete.getArticle());
-                        cptArticlesEnleves++;
+                        pan.remove(i);
                         break;
                     }
                 }
-                
+                i++;
             }
-//            tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
-            request.setAttribute("montantTotalR", ComputeTotal(pan));
-            request.setAttribute("lArticlesPanierR", pan);
-            request.setAttribute("showPopup", true);
-            request.setAttribute("cptArticlesEnleves", cptArticlesEnleves);
-            return ("panier.jsp");
-            
-        } catch (Exception ex) {
-            throw ex;
-        }
-    }
 
-    private String validerPanier(HttpServletRequest request) throws Exception {
-        try {
-            HttpSession session = request.getSession(true);
-            Integer id = (Integer) session.getAttribute("userId");
-            ArrayList<Article> pan = ((ArrayList<Article>) session.getAttribute("panier"));
-            int i = 0;
-
-            ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
+            tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
 
             Integer tot = (int) ComputeTotal(pan);
             Transaction transaction = new Transaction(id, tot);
@@ -302,7 +283,7 @@ public class slCommande extends HttpServlet {
             if (!pan.isEmpty()) {
                 if (compteF.debiterCompte(transaction)) {
                     //Date today = Calendar.getInstance().getTime();
-                    
+                    i = 0;
                     Client client = clientF.lire(id);
                     Date dateJour = new Date(System.currentTimeMillis());
                     for (Article a : tmp) {
@@ -311,11 +292,11 @@ public class slCommande extends HttpServlet {
                         achat.setArticle(a);
                         achat.setClient(client);
                         acheteF.ajouter(achat);
-                        pan.remove(a);
-                        
+                        pan.remove(i);
+                        i++;
                     }
-                } 
-           }
+                }
+            }
 
             Integer res = acheteF.getAcheteByCustomer(id).size();
             System.out.println(String.valueOf(res));
@@ -327,4 +308,5 @@ public class slCommande extends HttpServlet {
             throw e;
         }
     }
+
 }

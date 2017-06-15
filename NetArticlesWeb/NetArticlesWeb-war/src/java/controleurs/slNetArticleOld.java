@@ -8,9 +8,6 @@ package controleurs;
 import dal.Article;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,7 +21,7 @@ import session.ArticleFacade;
  *
  * @author Epulapp
  */
-public class slNetArticle extends HttpServlet {
+public class slNetArticleOld extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,8 +48,6 @@ public class slNetArticle extends HttpServlet {
                 vueReponse = voirArticle(request);
             } else if (demande.equalsIgnoreCase("dernierArticle.na")) {
                 vueReponse = dernierArticle(request);
-            } else if (demande.equalsIgnoreCase("tousLesArticles.na")) {
-                vueReponse = tousLesArticles(request);
             }
 
         } catch (Exception e) {
@@ -76,7 +71,7 @@ public class slNetArticle extends HttpServlet {
             request.setAttribute("articleR", art);
             request.setAttribute("id_domaineR", art.getIdDomaine());
 
-            // return ("detailArticle.jsp");
+           // return ("detailArticle.jsp");
             return ("voirArticle.jsp");
         } catch (Exception e) {
             throw e;
@@ -141,15 +136,5 @@ public class slNetArticle extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private String tousLesArticles(HttpServletRequest request) throws Exception {
-        try {
-            ArrayList<Article> lstArticle = (ArrayList<Article>) articleF.lister();
-            request.setAttribute("lArticlesR", lstArticle); //To change body of generated methods, choose Tools | Templates.
-            return "/listeArticles.jsp";
-        } catch (Exception ex) {
-            throw ex;
-        }
-    }
 
 }
