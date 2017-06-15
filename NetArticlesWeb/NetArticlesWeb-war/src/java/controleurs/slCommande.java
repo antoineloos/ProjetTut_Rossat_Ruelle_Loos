@@ -10,11 +10,7 @@ import dal.Article;
 import dal.Client;
 import dal.Domaine;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import static java.util.Arrays.stream;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +28,7 @@ import session.ArticleFacade;
 import session.ClientFacade;
 import session.CompteFacade;
 import session.DomaineFacade;
+
 import utils.Transaction;
 
 /**
@@ -262,9 +259,9 @@ public class slCommande extends HttpServlet {
             List<Achete> listeAchats = acheteF.getAcheteByCustomer(id);
 
             ArrayList<Article> tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
-            
+
             int cptArticlesEnleves = 0;
-            
+
             for (Article a : tmp) {
                 for (Achete achete : listeAchats) {
                     if (achete.getArticle().getIdArticle() == a.getIdArticle()) {
@@ -273,7 +270,7 @@ public class slCommande extends HttpServlet {
                         break;
                     }
                 }
-                
+
             }
 //            tmp = (ArrayList<Article>) ((ArrayList<Article>) pan).clone();
             request.setAttribute("montantTotalR", ComputeTotal(pan));
@@ -281,7 +278,7 @@ public class slCommande extends HttpServlet {
             request.setAttribute("showPopup", true);
             request.setAttribute("cptArticlesEnleves", cptArticlesEnleves);
             return ("panier.jsp");
-            
+
         } catch (Exception ex) {
             throw ex;
         }
@@ -302,7 +299,7 @@ public class slCommande extends HttpServlet {
             if (!pan.isEmpty()) {
                 if (compteF.debiterCompte(transaction)) {
                     //Date today = Calendar.getInstance().getTime();
-                    
+
                     Client client = clientF.lire(id);
                     Date dateJour = new Date(System.currentTimeMillis());
                     for (Article a : tmp) {
@@ -311,11 +308,14 @@ public class slCommande extends HttpServlet {
                         achat.setArticle(a);
                         achat.setClient(client);
                         acheteF.ajouter(achat);
-                        pan.remove(a);
-                        
+                        articleF.Emettre(a);
+
+                        pan.remove(i);
+                        i++;
+
                     }
-                } 
-           }
+                }
+            }
 
             Integer res = acheteF.getAcheteByCustomer(id).size();
             System.out.println(String.valueOf(res));
