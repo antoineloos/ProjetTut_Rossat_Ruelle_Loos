@@ -11,8 +11,15 @@ import dal.Domaine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.jms.ConnectionFactory;
+import javax.jms.MapMessage;
+import javax.jms.Topic;
+import javax.jms.TopicConnection;
+import javax.jms.TopicPublisher;
+import javax.jms.TopicSession;
 
 /**
  *
@@ -85,5 +92,43 @@ public class ArticleFacade {
         return true;
     }
     
+     @Resource(mappedName = "FabriqueArticles")
+    private ConnectionFactory fabriqueArticlesJMS;
+    @Resource(mappedName = "jms/Articles")
+    private Topic articles;
+    private TopicConnection connection = null;
+    private TopicSession session = null;
+    private TopicPublisher producteur = null;
+    private MapMessage mapMessage = null;
+
     
+    
+
+    
+    
+    public void Emettre(Article art) {
+
+        try {
+            connection = (TopicConnection) fabriqueArticlesJMS.createConnection();
+            session = connection.createTopicSession(false, 0);
+            producteur = session.createPublisher(articles);
+            mapMessage = session.createMapMessage();
+            mapMessage.setString("id", art.getIdArticle().toString());
+            
+            mapMessage.setString("titre", art.getTitre());
+            
+            producteur.publish(mapMessage);
+
+            producteur.close();
+        } catch (Exception ex) {
+            System.out.println("Erreur : " + ex.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
 }

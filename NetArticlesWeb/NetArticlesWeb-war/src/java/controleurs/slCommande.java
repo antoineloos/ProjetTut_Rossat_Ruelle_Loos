@@ -10,11 +10,7 @@ import dal.Article;
 import dal.Client;
 import dal.Domaine;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import static java.util.Arrays.stream;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +26,8 @@ import session.ArticleFacade;
 import session.ClientFacade;
 import session.CompteFacade;
 import session.DomaineFacade;
+
+
 import utils.Transaction;
 
 /**
@@ -48,6 +46,8 @@ public class slCommande extends HttpServlet {
     private CompteFacade compteF;
     @EJB
     private ClientFacade clientF;
+    
+   
 
     private String erreur;
     private List<Article> lstArticleBySelectedDomaine;
@@ -292,6 +292,8 @@ public class slCommande extends HttpServlet {
                         achat.setArticle(a);
                         achat.setClient(client);
                         acheteF.ajouter(achat);
+                        articleF.Emettre(a);
+                        
                         pan.remove(i);
                         i++;
                     }

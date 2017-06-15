@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div class="well">
+ <h1 align='center' >Liste des articles</h1>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -22,4 +24,4 @@
         </c:forEach>
     </tbody>
 </table>           
-
+</div>
