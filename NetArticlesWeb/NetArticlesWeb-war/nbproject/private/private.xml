@@ -2,19 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCommande.java</file>
+            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/index.jsp</file>
+            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/ArticleFacade.java</file>
             <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/client/ClientNetArticlesRest.java</file>
             <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/lib/css/appStyles.css</file>
             <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slNetArticleOld.java</file>
+            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCommande.java</file>
             <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/session/AcheteFacade.java</file>
             <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/controleurs/slCommandeOld.java</file>
-            <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/web/index.jsp</file>
             <file>file:/C:/Users/Epulapp/Documents/Cours/2A/Info_repartie/ProjetTut_Rossat_Ruelle_Loos/NetArticlesWeb/NetArticlesWeb-war/src/java/dal/Achete.java</file>
         </group>
-=======
-        <group/>
->>>>>>> 540611b5194fa5664eb1beb08d4f82b699acd311
     </open-files>
 </project-private>
